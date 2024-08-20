@@ -1,8 +1,9 @@
 package model.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class TaskBean {
+public class TaskBean implements Serializable{
 	
 	private int taskId;				//タスクID
 	private String taskName;		//タスク名
