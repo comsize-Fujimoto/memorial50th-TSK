@@ -28,7 +28,7 @@ public class TaskListDAO {
 				+ "t4.status_name,"
 				+ "t1.memo "
 				+ "FROM t_task t1 JOIN m_category t2 "
-				+ "ON t1.category_id = t2.catefory_id "
+				+ "ON t1.category_id = t2.category_id "
 				+ "JOIN m_user t3 "
 				+ "ON t1.user_id = t3.user_id "
 				+ "JOIN m_status t4 "

@@ -1,7 +1,0 @@
-diff a/src/main/java/model/dao/TaskDeleteDAO.java b/src/main/java/model/dao/TaskDeleteDAO.java	(rejected hunks)
-@@ -0,0 +1,5 @@
-+package model.dao;
-+
-+public class TaskDeleteDAO {
-+
-+}

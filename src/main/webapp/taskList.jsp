@@ -30,19 +30,23 @@
 			<a
 				href="update-task-servlet?task_code=<%=task.getTaskId()%>"><%=task.getTaskName()%></a>
 			</td>
-			<td><%=item.getCategoryName()%></td>
-			<td><%=item.getItemName()%></td>
-			<td><%=item.getPrice()%>円</td>
-			<td><%=item.getCategoryName()%></td>
-			<td><%=item.getItemName()%></td>
-			<td><%=item.getPrice()%>円</td>
+			<td><%=task.getCategoryName()%></td>
+			<td><%=task.getLimitDate()%></td>
+			<td><%=task.getUserName()%></td>
+			<td><%=task.getStatusName()%></td>
+			<td><%=task.getMemo()%></td>
 		</tr>
 		<%
 		}
 		%>
 	</table>
 	
-	
+	<br>
+	<div>
+		<form action="menu.jsp" method="POST">
+			<input type="submit" value="メニュー画面へ">
+		</form>
+	</div>
 	
 	
 </body>
