@@ -7,7 +7,41 @@
 <title>削除確認画面</title>
 </head>
 <body>
-	削除確認画面
+	<%
+		 TaskBean taskDetail = (TaskBean) session.getAttribute("taskDetail");
+	%>
+
+	<h1>タスク情報-削除確認画面</h1>
+	<hr>
+	<h2>タスク情報を削除します。よろしいですか？</h2>
+	<br>
+		<table border="1">
+			<tr>
+				<th>タスク名</th>
+				<td><%=taskDetail.getItemCode()%></td>
+			</tr>
+			<tr>
+				<th>カテゴリ情報</th>
+				<td><%=taskDetail.getCategoryName()%></td>
+			</tr>
+			<tr>
+				<th>期限</th>
+				<td><%=itemDetail.getItemName()%></td>
+			</tr>
+			<tr>
+				<th>担当者情報</th>
+				<td><%=itemDetail.getPrice()%></td>
+			</tr>
+			<tr>
+				<th>ステータス情報</th>
+				<td><%=itemDetail.getPrice()%></td>
+			</tr>
+			<tr>
+				<th>メモ</th>
+				<td><%=itemDetail.getPrice()%></td>
+			</tr>
+		</table>
+	<br>
 
 	<form action="task-delete-servlet" method="POST">
 		<!-- task_idの情報を送信する -->
