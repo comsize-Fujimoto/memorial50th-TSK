@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.dao.UserDAO;
+import model.dao.TaskLoginDAO;
 import model.entity.UserBean;
 
 /**
@@ -41,9 +41,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDAO dao = new UserDAO();
+		TaskLoginDAO dao = new TaskLoginDAO();
 		
-		UserBean bean = null;
+		UserBean user = null;
 		
 		// 入力されたユーザIDとパスワードを取得する
 
@@ -52,7 +52,8 @@ public class LoginServlet extends HttpServlet {
 		try {
 			
 			// 入力されたユーザIDとパスワードでユーザの情報を取得する
-			bean = dao.login(userId, password);
+			//id,pwを引数としてdaoのログインメソッドを呼び出す
+			user = dao.login(userId, password);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -61,19 +62,19 @@ public class LoginServlet extends HttpServlet {
 		
 		String url = "";// 転送先
 		// ログイン認証
-		if (bean != null) {
+		if (user != null) {
 			// セッションオブジェクトを生成
 			HttpSession session = request.getSession();
 			// セッションスコープへユーザ名を設定
-			session.setAttribute("userName", bean.getUserName());
-			url = "menu.jsp";// メニュー画面
+			session.setAttribute("userName", user.getUserName());
+			url = "task-menu.jsp";// メニュー画面
 		} else {
 			url = "login-failure.jsp";// ログイン失敗画面
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
-
+//	task-menu.jspへ飛ぶ
 	}
 
 }
