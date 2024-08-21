@@ -15,18 +15,24 @@
 	
 		<table border="1">
 		<tr>
-			<th>商品コード</th>
-			<th>商品分類</th>
-			<th>商品名</th>
-			<th>価格</th>
+			<th>タスク名</th>
+			<th>カテゴリ情報</th>
+			<th>期限</th>
+			<th>担当者情報</th>
+			<th>ステータス情報</th>
+			<th>メモ</th>
 		</tr>
 		<%
 		for (TaskBean task : taskList) {
 		%>
 		<tr>
-			<td><a
-				href="ItemDetailServlet?item_code=<%=item.getItemCode()%>"><%=item.getItemCode()%></a>
+			<td>
+			<a
+				href="update-task-servlet?task_code=<%=task.getTaskId()%>"><%=task.getTaskName()%></a>
 			</td>
+			<td><%=item.getCategoryName()%></td>
+			<td><%=item.getItemName()%></td>
+			<td><%=item.getPrice()%>円</td>
 			<td><%=item.getCategoryName()%></td>
 			<td><%=item.getItemName()%></td>
 			<td><%=item.getPrice()%>円</td>
