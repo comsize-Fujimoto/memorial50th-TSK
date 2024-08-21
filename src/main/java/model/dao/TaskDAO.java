@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.entity.CategoryBean;
 import model.entity.TaskBean;
 
 public class TaskDAO {
@@ -46,7 +49,41 @@ public class TaskDAO {
 		return task;
 	}
 	
-	
+	public List<CategoryBean> allCategory(){ //制作中
+		
+		//sql文の作成をする
+		String sql = "SELECT category_code,category_name FROM m_category";
+		
+		//抽出したテーブルを格納するリストの作成をする
+		List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
+		
+		//データベースへの接続とSQL文の準備をする
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)
+				){
+			//SQLの実行をする
+			ResultSet res = pstmt.executeQuery();
+			
+			//抽出したテーブルをリストに格納する
+			int i = 0;
+			while(res.next()) {
+				
+				categoryList.add(new CategoryBean());
+				categoryList.get(i).setCategoryCode(res.getInt("category_code"));
+				categoryList.get(i).setCategoryName(res.getString("category_name"));
+				
+				i++;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return categoryList;
+		
+	}
 	
 	
 }

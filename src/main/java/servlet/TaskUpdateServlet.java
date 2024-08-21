@@ -36,10 +36,10 @@ public class TaskUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//リクエストパラメータを取得する
-		int taskId = Integer.parseInt(request.getParameter("taskId"));
+		int taskId = Integer.parseInt(request.getParameter("task_code"));
 		
-		//DAOのインスタンス化
-		TaskDAO dao = new TaskDAO();
+		//TaskDAOのインスタンス化
+		TaskDAO tdao = new TaskDAO();
 		
 		//データベースから対象のタスクを読み出し
 		TaskBean taskBean = dao.selectTask(taskId);
@@ -48,10 +48,10 @@ public class TaskUpdateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		//セッションスコープに書き出し
-		session.setAttribute("taskBean", taskBean);
+		session.setAttribute("updateTask", taskBean);
 		
 		//メニュー画面のパスを指定して転送処理用のオブジェクトを取得する
-		RequestDispatcher rd = request.getRequestDispatcher("tsk-update.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
 		
 		//リクエストの転送
 		rd.forward(request, response);
