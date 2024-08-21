@@ -57,7 +57,7 @@ public class TaskListServlet extends HttpServlet {
 			//TaslListから情報をもらう
 			taskList = dao.taskAll();
 
-			//スコープにセット
+			//リクエストスコープにセット
 			request.setAttribute("taskList", taskList);
 
 			//一覧表示へフォワード
@@ -66,6 +66,7 @@ public class TaskListServlet extends HttpServlet {
 			
 		} catch (SQLException | ClassNotFoundException e) {
 			
+			e.printStackTrace();
 		}
 	}
 
