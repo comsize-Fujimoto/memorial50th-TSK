@@ -11,6 +11,7 @@
 <body>
 	<% List<TaskBean> taskList = (List<TaskBean>)request.getAttribute("taskList");%>
 	
+	<h1>タスク一覧</h1>
 	<hr>
 	
 		<table border="1">
@@ -28,7 +29,9 @@
 		<tr>
 			<td>
 			<a
-				href="update-task-servlet?task_code=<%=task.getTaskId()%>"><%=task.getTaskName()%></a>
+				href="update-task-servlet?task_code=<%=task.getTaskId()%>"><%=task.getTaskName()%>
+			</a>
+			
 			</td>
 			<td><%=task.getCategoryName()%></td>
 			<td><%=task.getLimitDate()%></td>

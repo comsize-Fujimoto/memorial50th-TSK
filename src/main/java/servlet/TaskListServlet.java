@@ -61,7 +61,7 @@ public class TaskListServlet extends HttpServlet {
 			request.setAttribute("taskList", taskList);
 
 			//一覧表示へフォワード
-			RequestDispatcher rd = request.getRequestDispatcher("taskList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
 			rd.forward(request, response);
 			
 		} catch (SQLException | ClassNotFoundException e) {
