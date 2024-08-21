@@ -62,9 +62,12 @@ public class TaskListDAO {
 				tb.setTaskId(taskId);
 				tb.setTaskName(taskName);
 				tb.setCategoryName(categoryName);
+				tb.setLimitDate(limitDate);
+				tb.setUserName(userName);
+				tb.setStatusName(statusName);
+				tb.setMemo(memo);
 				
-				//ここまでやった
-				
+				taskList.add(tb);
 				
 			}
 		}
