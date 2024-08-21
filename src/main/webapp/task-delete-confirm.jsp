@@ -11,7 +11,7 @@
 
 	<form action="task-delete-servlet" method="POST">
 		<!-- task_idの情報を送信する -->
-		<input type="hidden" name="item_code" value="<%=.getTaskId()%>">
+		<input type="hidden" name="task_id" value="<%=.getTaskId()%>">
 		<input type="submit" value="削除する">
 	</form>
 	<br>
