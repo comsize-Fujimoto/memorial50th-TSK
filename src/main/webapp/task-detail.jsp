@@ -11,34 +11,39 @@
 	
 	<% TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");%>
 	
-	<form action="update-task-servlet" method="post">
-	
 	<div>タスク名</div><br>
-	<input type="text" name="taskName">
+	<%=taskBean.getTaskName() %>
+	<br>
 	
 	<div>カテゴリ情報</div>
-	<select name="categoryId">
-		<option value=""></option>
-	</select>
+	<%=taskBean.getCategoryName() %>
+	<br>
 	
 	<div>期限</div>
-	<input type="date" name="limitDate">
+	<%=taskBean.getLimitDate() %>
+	<br>
 	
 	<div>担当者情報</div>
-	<select name="userId">
-		<option value=""></option>
-	</select>
+	<%=taskBean.getUserName() %>
+	<br>
 	
 	<div>ステータス情報</div>
-	<select name="statusCode">
-		<option value=""></option>
-	</select>
+	<%=taskBean.getStatusName() %>
+	<br>
 	
 	<div>メモ</div>
-	<textarea name="memo" rows="4" cols="25">
+	<%=taskBean.getMemo() %>
+	<br>
 	
-	</textarea>
-	
+	<!-- 編集へ飛ぶ -->
+	<form action="update-task-servlet" method="POST">
+		<input type="submit" value="タスク編集">
 	</form>
+	
+	<!-- 削除確認画面へ飛ぶ -->
+	<form action="task-delete-confirm.jsp" method="GET">
+		<input type="submit" value="タスク削除">
+	</form>
+	
 </body>
 </html>
