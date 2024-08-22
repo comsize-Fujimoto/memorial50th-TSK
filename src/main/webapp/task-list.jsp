@@ -35,17 +35,16 @@
 			</td>
 			<td><%=task.getCategoryName()%></td>
 			
+			<!-- 期限がnullの場合期限なしを表示する -->
 			<td><% if(task.getLimitDate() != null){ %>
 				
 				<%=task.getLimitDate() %>
-				
 				<%
 				}else{
 					%> 期限なし<%
 				}
 				%>
-				</td>
-			
+			</td>
 			<td><%=task.getUserName()%></td>
 			<td><%=task.getStatusName()%></td>
 			<td><%=task.getMemo()%></td>
