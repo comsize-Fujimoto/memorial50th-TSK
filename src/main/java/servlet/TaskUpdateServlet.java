@@ -39,7 +39,7 @@ public class TaskUpdateServlet extends HttpServlet {
 		int taskId = Integer.parseInt(request.getParameter("task_code"));
 		
 		//TaskDAOのインスタンス化
-		TaskDAO tdao = new TaskDAO();
+		TaskDAO dao = new TaskDAO();
 		
 		//データベースから対象のタスクを読み出し
 		TaskBean taskBean = dao.selectTask(taskId);
@@ -61,6 +61,9 @@ public class TaskUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 	}
 
 }
