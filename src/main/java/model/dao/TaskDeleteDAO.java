@@ -8,7 +8,7 @@ public class TaskDeleteDAO {
 	
 	public int deleteTask(int taskId) throws SQLException, ClassNotFoundException {
 
-		String sql = "DELETE FROM t-task WHERE task_id = ?";
+		String sql = "DELETE FROM t_task WHERE task_id = ?";
 		int processingNumber = 0; //処理件数
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {

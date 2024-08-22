@@ -43,11 +43,10 @@
 		</table>
 	<br>
 
-	<form action="task-delete-servlet" method="POST">
-		<!-- task_idの情報を送信する -->
-		<input type="hidden" name="task_id" value="<%=taskBean.getTaskId()%>">
-		<input type="submit" value="削除する">
-	</form>
+	 <form action="task-delete-servlet" method="POST">
+        <input type="hidden" name="task_id" value="<%= taskBean.getTaskId() %>">
+        <input type="submit" value="削除する">
+    </form>
 	<br>
 	<!-- 詳細情報に戻る -->
 	<form action="task-detail.jsp" method="POST">
