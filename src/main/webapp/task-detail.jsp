@@ -45,5 +45,19 @@
 		<input type="submit" value="タスク削除">
 	</form>
 	
+	<br>
+	
+	<!-- 一覧へ戻る -->
+		
+	<form action="task-list-servlet" method="POST">
+		<input type="submit" value="タスク一覧">
+		
+	</form>
+	
+	<!-- メニューへ戻る -->
+	<form action="task-menu.jsp" method="POST">
+		<input type="submit" value="メニュー画面へ">
+	</form>
+	
 </body>
 </html>
