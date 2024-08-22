@@ -51,7 +51,7 @@
 	<!-- 編集へ飛ぶ -->
 	<tr>
 	<td>
-	<form action="update-task-servlet" method="POST">
+	<form action="task-update.jsp" method="POST">
 		<input type="submit" value="タスク編集">
 	</form>
 	</td>
