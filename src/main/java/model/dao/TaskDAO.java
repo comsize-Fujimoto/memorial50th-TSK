@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import model.entity.CategoryBean;
 import model.entity.TaskBean;
+import model.entity.UserBean;
 
 public class TaskDAO {
 	
@@ -17,7 +18,20 @@ public class TaskDAO {
 		//読み出したタスク保持するBean
 		TaskBean task = new TaskBean();
 		//SQL文
-		String sql = "SELECT task_id,task_name,category_id,limit_date,user_id,status_code,memo FROM t_task WHERE task_id = ?";
+		//String sql = "SELECT task_id,task_name,category_id,limit_date,user_id,status_code,memo FROM t_task WHERE task_id = ?";
+		
+		String sql = "SELECT t1.task_id,t1.task_name,t2.category_name,"
+				+ "t1.limit_date,"
+				+ "t3.user_name,"
+				+ "t4.status_name,"
+				+ "t1.memo "
+				+ "FROM t_task t1 JOIN m_category t2 "
+				+ "ON t1.category_id = t2.category_id "
+				+ "JOIN m_user t3 "
+				+ "ON t1.user_id = t3.user_id "
+				+ "JOIN m_status t4 "
+				+ "ON t1.status_code = t4.status_code "
+				+ "WHERE task_id = ?";
 		
 		//データベースへの接続とSQL文の準備をする
 		try(Connection con = ConnectionManager.getConnection();
@@ -31,13 +45,13 @@ public class TaskDAO {
 			
 			//抽出したテーブルをUserBeanに格納する
 			while(res.next()) {
-				task.setTaskId(res.getInt("task_id"));
-				task.setTaskName(res.getString("task_name"));
-				task.setCategoryId(res.getInt("category_id"));
-				task.setLimitDate(res.getDate("limit_date"));
-				task.setUserId(res.getString("user_id"));
-				task.setStatusCode(res.getString("status_code"));
-				task.setMemo(res.getString("memo"));
+				task.setTaskId(res.getInt("t1.task_id"));
+				task.setTaskName(res.getString("t1.task_name"));
+				task.setCategoryName(res.getString("t2.category_name"));
+				task.setLimitDate(res.getDate("t1.limit_date"));
+				task.setUserName(res.getString("t3.user_name"));
+				task.setStatusName(res.getString("t4.status_name"));
+				task.setMemo(res.getString("t1.memo"));
 			}
 			
 		}catch(SQLException e) {
@@ -49,13 +63,13 @@ public class TaskDAO {
 		return task;
 	}
 	
-	public List<CategoryBean> allCategory(){ //制作中
+	public Map<Integer,CategoryBean> allCategory(){ //マップ使ってみた
 		
 		//sql文の作成をする
 		String sql = "SELECT category_code,category_name FROM m_category";
 		
 		//抽出したテーブルを格納するリストの作成をする
-		List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
+		Map<Integer,CategoryBean> categoryMap = new HashMap<Integer,CategoryBean>();
 		
 		//データベースへの接続とSQL文の準備をする
 		try(Connection con = ConnectionManager.getConnection();
@@ -65,14 +79,16 @@ public class TaskDAO {
 			ResultSet res = pstmt.executeQuery();
 			
 			//抽出したテーブルをリストに格納する
-			int i = 0;
+			int categoryCode;
+			String categoryName;
 			while(res.next()) {
 				
-				categoryList.add(new CategoryBean());
-				categoryList.get(i).setCategoryCode(res.getInt("category_code"));
-				categoryList.get(i).setCategoryName(res.getString("category_name"));
+				categoryCode = res.getInt("category_code");
+				categoryName = res.getString("category_name");
 				
-				i++;
+				categoryMap.put(categoryCode,new CategoryBean());
+				categoryMap.get(categoryCode).setCategoryCode(categoryCode);
+				categoryMap.get(categoryCode).setCategoryName(categoryName);
 			}
 			
 		}catch(SQLException e) {
@@ -81,9 +97,46 @@ public class TaskDAO {
 			e.printStackTrace();
 		}
 		
-		return categoryList;
+		return categoryMap;
 		
 	}
 	
+	public Map<String,UserBean> allUser(){ //マップ使ってみた
+		
+		//sql文の作成をする
+		String sql = "SELECT user_id,user_name FROM m_user";
+		
+		//抽出したテーブルを格納するリストの作成をする
+		Map<String,UserBean> userMap = new HashMap<String,UserBean>();
+		
+		//データベースへの接続とSQL文の準備をする
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)
+				){
+			//SQLの実行をする
+			ResultSet res = pstmt.executeQuery();
+			
+			//抽出したテーブルをリストに格納する
+			String userId;
+			String userName;
+			while(res.next()) {
+				
+				userId = res.getString("user_id");
+				userName = res.getString("user_name");
+				
+				userMap.put(userId,new UserBean());
+				userMap.get(userId).setUserId(userId);
+				userMap.get(userId).setUserName(userName);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return userMap;
+		
+	}
 	
 }
