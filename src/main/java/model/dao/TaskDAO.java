@@ -17,7 +17,7 @@ public class TaskDAO {
 		//読み出したタスク保持するBean
 		TaskBean task = new TaskBean();
 		//SQL文
-		String sql = "SELECT task_id,task_name,category_id,limit_date,user_id,status_code,memo FROM t_task WHERE = ?";
+		String sql = "SELECT task_id,task_name,category_id,limit_date,user_id,status_code,memo FROM t_task WHERE task_id = ?";
 		
 		//データベースへの接続とSQL文の準備をする
 		try(Connection con = ConnectionManager.getConnection();
