@@ -42,7 +42,7 @@
 			</tr>
 		</table>
 	<br>
-
+	<!-- 削除実行 -->
 	 <form action="task-delete-servlet" method="POST">
         <input type="hidden" name="task_id" value="<%= taskBean.getTaskId() %>">
         <input type="submit" value="削除する">
