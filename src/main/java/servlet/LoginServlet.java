@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userName", user.getUserName());
 			url = "task-menu.jsp";// メニュー画面
 		} else {
-			url = "login-failure.jsp";// ログイン失敗画面
+			url = "login.failure.jsp";// ログイン失敗画面
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher(url);
