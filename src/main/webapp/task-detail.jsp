@@ -19,8 +19,16 @@
 	<%=taskBean.getCategoryName() %>
 	<br>
 	
+	<!-- 期限がnullの場合期限なしを表示 -->
 	<div>期限</div>
-	<%=taskBean.getLimitDate() %>
+	<% if(taskBean.getLimitDate() != null){ %>
+				
+			<%=taskBean.getLimitDate() %>
+		<%
+		}else{
+			%> 期限なし<%
+		}
+		%>
 	<br>
 	
 	<div>担当者情報</div>
