@@ -1,3 +1,4 @@
+//login.jspからPOSTで送られてきたものをdoPOSTで受け取る
 package servlet;
 
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		インスタンス化する
 		TaskLoginDAO dao = new TaskLoginDAO();
 		
 		UserBean user = null;
@@ -71,10 +73,11 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			url = "login.failure.jsp";// ログイン失敗画面
 		}
-
+//		RequestDispatcherオブジェクトのforwardメソッドを使い
+//		リクエストの転送をする
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
-//	task-menu.jspへ飛ぶ
+//	
 	}
 
 }

@@ -12,6 +12,7 @@
 	<hr>
 	<h1>ログインに失敗しました。</h1>
 	
+		<!-- POSTでlogin.jspへ送る -->	
 		<form action="login.jsp" method="POST">
 		<input type="submit" value="ログイン画面へ">
 	</form>

@@ -14,7 +14,7 @@
 		<b>ユーザIDとパスワードを入力してください</b>
 	</h1>
 	<div>
-	<!-- LoginServletでいいか確認 -->
+	<!-- POSTでLoginServletへ送る -->
 		<form action="LoginServlet" method="POST">
 			<table>
 				<tr>

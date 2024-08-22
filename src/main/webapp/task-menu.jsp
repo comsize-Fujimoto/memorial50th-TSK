@@ -23,7 +23,7 @@
 	<div>
 
 <!-- タスク登録のaction先を齋藤さんに確認 -->
-	<form action="" method="POST">
+	<form action="Task-register.jsp" method="POST">
 		<input type="submit" value="タスク登録">
 		
 	</form>
