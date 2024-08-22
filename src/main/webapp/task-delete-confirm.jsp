@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="model.entity.TaskBean"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%
-		 TaskBean taskDetail = (TaskBean) session.getAttribute("taskDetail");
+	TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
 	%>
 
 	<h1>タスク情報-削除確認画面</h1>
@@ -18,39 +18,39 @@
 		<table border="1">
 			<tr>
 				<th>タスク名</th>
-				<td><%=taskDetail.getItemCode()%></td>
+				<td><%=taskBean.getTaskName()%></td>
 			</tr>
 			<tr>
 				<th>カテゴリ情報</th>
-				<td><%=taskDetail.getCategoryName()%></td>
+				<td><%=taskBean.getCategoryName()%></td>
 			</tr>
 			<tr>
 				<th>期限</th>
-				<td><%=itemDetail.getItemName()%></td>
+				<td><%=taskBean.getLimitDate()%></td>
 			</tr>
 			<tr>
 				<th>担当者情報</th>
-				<td><%=itemDetail.getPrice()%></td>
+				<td><%=taskBean.getUserName()%></td>
 			</tr>
 			<tr>
 				<th>ステータス情報</th>
-				<td><%=itemDetail.getPrice()%></td>
+				<td><%=taskBean.getStatusName()%></td>
 			</tr>
 			<tr>
 				<th>メモ</th>
-				<td><%=itemDetail.getPrice()%></td>
+				<td><%=taskBean.getMemo()%></td>
 			</tr>
 		</table>
 	<br>
 
 	<form action="task-delete-servlet" method="POST">
 		<!-- task_idの情報を送信する -->
-		<input type="hidden" name="task_id" value="<%=.getTaskId()%>">
+		<input type="hidden" name="task_id" value="<%=taskBean.getTaskId()%>">
 		<input type="submit" value="削除する">
 	</form>
 	<br>
 	<!-- 詳細情報に戻る -->
-	<form action="" method="POST">
+	<form action="task-detail.jsp" method="POST">
 		<input type="submit" value="詳細表示へ">
 	</form>
 
