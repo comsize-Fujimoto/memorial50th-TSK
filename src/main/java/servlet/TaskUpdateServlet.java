@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.TaskDAO;
+import model.entity.CategoryBean;
 import model.entity.TaskBean;
 
 /**
@@ -39,16 +41,19 @@ public class TaskUpdateServlet extends HttpServlet {
 		int taskId = Integer.parseInt(request.getParameter("task_code"));
 		
 		//TaskDAOのインスタンス化
-		TaskDAO dao = new TaskDAO();
+		TaskDAO tdao = new TaskDAO();
 		
 		//データベースから対象のタスクを読み出し
-		TaskBean taskBean = dao.selectTask(taskId);
+		TaskBean taskBean = tdao.selectTask(taskId);
+		//データベースからカテゴリを読み出し
+		Map<Integer,CategoryBean> categoryMap = tdao.allCategory();
 		
 		//セッションスコープを使えるようにする
 		HttpSession session = request.getSession();
 		
 		//セッションスコープに書き出し
 		session.setAttribute("updateTask", taskBean);
+		session.setAttribute("categoryMap", categoryMap);
 		
 		//メニュー画面のパスを指定して転送処理用のオブジェクトを取得する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
