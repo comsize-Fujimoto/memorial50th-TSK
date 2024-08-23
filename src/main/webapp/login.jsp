@@ -19,11 +19,11 @@
 			<table>
 				<tr>
 					<th>ユーザID</th>
-					<td><input type="text" name="user_id">
+					<td><input type="text" name="user_id" required>
 				</tr>
 				<tr>
 					<th>パスワード</th>
-					<td><input type="password" name="password">
+					<td><input type="password" name="password" required>
 				</tr>
 			</table>
 		<br>
