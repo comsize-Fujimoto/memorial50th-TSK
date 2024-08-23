@@ -17,7 +17,7 @@
 	
 	<form action="update-task-servlet" method="post">
 	
-	<div>タスク名</div><br>
+	<div>タスク名</div>
 	<input type="text" name="taskName" value="<%=taskBean.getTaskName() %>">
 	
 	<div>カテゴリ情報</div>
@@ -29,7 +29,7 @@
 	
 	<div>期限</div>
 	<% SimpleDateFormat today = new SimpleDateFormat("yyyy-MM-DD"); %>
-	<input type="date" name="limitDate" value="<%=taskBean.getLimitDate() %>" min="today">
+	<input type="date" name="limitDate" value="<%=taskBean.getLimitDate() %>" min="<%=today %>">
 	
 	<div>担当者情報</div>
 	<%=taskBean.getUserName() %>
@@ -43,10 +43,10 @@
 	</select>
 	
 	<div>メモ</div>
-	<textarea name="memo" rows="4" cols="25">
-	<%=taskBean.getMemo() %>
-	</textarea>
-	
+	<textarea name="memo" rows="4" cols="25"><%=taskBean.getMemo() %></textarea>
+	<br>
+	<input type="submit" value="完了">
+	<input type="reset" value="元に戻す">
 	</form>
 	
 	

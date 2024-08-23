@@ -56,6 +56,7 @@ public class TaskUpdateServlet extends HttpServlet {
 		//セッションスコープに書き出し
 		session.setAttribute("updateTask", taskBean);
 		session.setAttribute("categoryMap", categoryMap);
+		session.setAttribute("statusMap", statusMap);
 		
 		//メニュー画面のパスを指定して転送処理用のオブジェクトを取得する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
