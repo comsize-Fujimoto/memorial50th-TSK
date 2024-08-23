@@ -13,6 +13,7 @@
 	
 	<h1>タスク一覧</h1>
 	<hr>
+	<%if(!taskList.isEmpty()){ %>
 	
 		<table border="1">
 		<tr>
@@ -55,6 +56,14 @@
 	</table>
 	
 	<br>
+	<% 
+	}else{
+	%>
+	<h1>タスクが存在していません。</h1>
+	<% 
+	}
+	%>
+	<hr>
 	<div>
 		<form action="task-menu.jsp" method="POST">
 			<input type="submit" value="メニュー画面へ">
