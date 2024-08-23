@@ -69,6 +69,8 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			// セッションスコープへユーザ名を設定
 			session.setAttribute("userName", user.getUserName());
+			session.setAttribute("userId", user.getUserId());
+
 			url = "task-menu.jsp";// メニュー画面
 		} else {
 			url = "login.failure.jsp";// ログイン失敗画面
