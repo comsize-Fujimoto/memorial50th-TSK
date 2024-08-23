@@ -19,7 +19,7 @@ public class TaskListDAO {
 		List<TaskBean> taskList = new ArrayList<TaskBean>();
 		
 		//データベース情報取得SQL
-		//taskIdは編集・削除に必要
+		//taskIdは詳細表示に必要
 		String sql = "SELECT t1.task_id,"
 				+ "t1.task_name,"
 				+ "t2.category_name,"
@@ -57,6 +57,7 @@ public class TaskListDAO {
 				//メモ
 				String memo = res.getString("t1.memo");
 				
+				//各値をBeanへセットし、Listへ格納
 				TaskBean tb = new TaskBean();
 				
 				tb.setTaskId(taskId);
@@ -72,7 +73,7 @@ public class TaskListDAO {
 			}
 		}
 		
-		
+		//リストをリターン
 		return taskList;
 	}
 

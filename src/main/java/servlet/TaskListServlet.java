@@ -44,7 +44,8 @@ public class TaskListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		//文字コード設定
 		request.setCharacterEncoding("UTF-8");
 
 		//インスタンス化
@@ -54,7 +55,7 @@ public class TaskListServlet extends HttpServlet {
 		List<TaskBean> taskList = new ArrayList<TaskBean>();
 
 		try {
-			//TaslListから情報をもらう
+			//taskListDAOから情報をもらう
 			taskList = dao.taskAll();
 
 			//リクエストスコープにセット

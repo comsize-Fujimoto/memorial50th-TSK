@@ -12,7 +12,9 @@
 	<% List<TaskBean> taskList = (List<TaskBean>)request.getAttribute("taskList");%>
 	
 	<h1>タスク一覧</h1>
+	<b>This page is Task_List!!</b>
 	<hr>
+	<!-- リストに存在している場合テーブル表示 -->
 	<%if(!taskList.isEmpty()){ %>
 	
 		<table border="1">
@@ -56,10 +58,12 @@
 	</table>
 	
 	<br>
+	<!-- リストに存在していない場合表示する -->
 	<% 
 	}else{
 	%>
 	<h1>タスクが存在していません。</h1>
+	<b>Error!! Task is not found!!</b>
 	<% 
 	}
 	%>
