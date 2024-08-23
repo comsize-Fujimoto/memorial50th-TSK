@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.entity.CategoryBean;
+import model.entity.StatusBean;
 import model.entity.TaskBean;
 import model.entity.UserBean;
 
@@ -22,6 +23,7 @@ public class TaskDAO {
 		
 		String sql = "SELECT t1.task_id,t1.task_name,t2.category_name,"
 				+ "t1.limit_date,"
+				+ "t1.user_id,"
 				+ "t3.user_name,"
 				+ "t4.status_name,"
 				+ "t1.memo "
@@ -49,6 +51,7 @@ public class TaskDAO {
 				task.setTaskName(res.getString("t1.task_name"));
 				task.setCategoryName(res.getString("t2.category_name"));
 				task.setLimitDate(res.getDate("t1.limit_date"));
+				task.setUserId(res.getString("t1.user_Id"));
 				task.setUserName(res.getString("t3.user_name"));
 				task.setStatusName(res.getString("t4.status_name"));
 				task.setMemo(res.getString("t1.memo"));
@@ -66,7 +69,7 @@ public class TaskDAO {
 	public Map<Integer,CategoryBean> allCategory(){ //マップ使ってみた
 		
 		//sql文の作成をする
-		String sql = "SELECT category_code,category_name FROM m_category";
+		String sql = "SELECT category_id,category_name FROM m_category";
 		
 		//抽出したテーブルを格納するリストの作成をする
 		Map<Integer,CategoryBean> categoryMap = new HashMap<Integer,CategoryBean>();
@@ -79,16 +82,16 @@ public class TaskDAO {
 			ResultSet res = pstmt.executeQuery();
 			
 			//抽出したテーブルをリストに格納する
-			int categoryCode;
+			int categoryId;
 			String categoryName;
 			while(res.next()) {
 				
-				categoryCode = res.getInt("category_code");
+				categoryId = res.getInt("category_id");
 				categoryName = res.getString("category_name");
 				
-				categoryMap.put(categoryCode,new CategoryBean());
-				categoryMap.get(categoryCode).setCategoryCode(categoryCode);
-				categoryMap.get(categoryCode).setCategoryName(categoryName);
+				categoryMap.put(categoryId,new CategoryBean());
+				categoryMap.get(categoryId).setCategoryId(categoryId);
+				categoryMap.get(categoryId).setCategoryName(categoryName);
 			}
 			
 		}catch(SQLException e) {
@@ -136,6 +139,44 @@ public class TaskDAO {
 		}
 		
 		return userMap;
+		
+	}
+	
+	public Map<Integer,StatusBean> allStatus(){ //マップ使ってみた
+		
+		//sql文の作成をする
+		String sql = "SELECT status_code,status_name FROM m_status";
+		
+		//抽出したテーブルを格納するリストの作成をする
+		Map<Integer,StatusBean> statusMap = new HashMap<Integer,StatusBean>();
+		
+		//データベースへの接続とSQL文の準備をする
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)
+				){
+			//SQLの実行をする
+			ResultSet res = pstmt.executeQuery();
+			
+			//抽出したテーブルをリストに格納する
+			int statusCode;
+			String statusName;
+			while(res.next()) {
+				
+				statusCode = res.getInt("status_code");
+				statusName = res.getString("status_name");
+				
+				statusMap.put(statusCode,new StatusBean());
+				statusMap.get(statusCode).setStatusCode(statusCode);
+				statusMap.get(statusCode).setStatusName(statusName);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return statusMap;
 		
 	}
 	
