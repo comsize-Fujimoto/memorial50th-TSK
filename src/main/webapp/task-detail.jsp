@@ -52,7 +52,7 @@
 	<hr>
 	
 	<table>
-	<!-- ログイン時のuseridと詳細情報のuseridが一致した時編集・削除できる -->
+	<!-- ログイン時のuseridとTaskBean内のuseridが一致した時編集・削除できる -->
 	
 	<%if(userIdLogin.equals(userIdDatabase)){ %>
 	<!-- 編集へ飛ぶ -->
