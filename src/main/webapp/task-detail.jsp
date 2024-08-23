@@ -11,7 +11,10 @@
 	
 	<hr>
 	
-	<% TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
+	<% 
+		TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
+		
+		//ログインIDは編集・削除判定用
 		String userIdLogin = (String) session.getAttribute("userId");
 		String userIdDatabase = taskBean.getUserId();
 	%>
