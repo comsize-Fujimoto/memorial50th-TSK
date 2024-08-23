@@ -1,3 +1,5 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="model.entity.TaskBean,model.entity.CategoryBean,model.entity.StatusBean,java.util.Map,java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
@@ -27,9 +29,14 @@
 		<% } %>
 	</select>
 	
+	<%-- <%
+	LocalDateTime now = LocalDateTime.now();
+	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+	String today = now.format(dateFormat);
+	%> --%>
+	
 	<div>期限</div>
-	<% SimpleDateFormat today = new SimpleDateFormat("yyyy-MM-DD"); %>
-	<input type="date" name="limitDate" value="<%=taskBean.getLimitDate() %>" min="<%=today %>">
+	<input type="date" name="limitDate" value="<%=taskBean.getLimitDate() %>"<%--  min="<%=today %>" --%>>
 	
 	<div>担当者情報</div>
 	<%=taskBean.getUserName() %>

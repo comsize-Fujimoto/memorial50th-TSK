@@ -12,6 +12,10 @@ import model.entity.StatusBean;
 import model.entity.TaskBean;
 import model.entity.UserBean;
 
+/**
+ * @author dadadaaaaaaike
+ */
+
 public class TaskDAO {
 	
 	public TaskBean selectTask(int taskId) {

@@ -2,10 +2,14 @@ package model.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author dadadaaaaaaike
+ */
+
 public class CategoryBean implements Serializable{
 	
-	private int categoryId;
-	private String categoryName;
+	private int categoryId;			//カテゴリID
+	private String categoryName;	//カテゴリネーム
 	
 	public CategoryBean() {
 		
