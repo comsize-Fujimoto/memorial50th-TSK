@@ -12,7 +12,8 @@
 	<hr>
 	
 	<% TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
-		String userId = (String) session.getAttribute("userId");
+		String userIdLogin = (String) session.getAttribute("userId");
+		String userIdDatabase = taskBean.getUserId();
 	%>
 	
 	
@@ -53,6 +54,7 @@
 	<table>
 	<!-- ログイン時のuseridと詳細情報のuseridが一致した時編集・削除できる -->
 	
+	<%if(userIdLogin.equals(userIdDatabase)){ %>
 	<!-- 編集へ飛ぶ -->
 	<tr>
 	<td>
@@ -66,6 +68,10 @@
 		<input type="submit" value="タスク削除">
 	</form>
 	</td>
+	
+	<% 
+	}
+	%>
 	<!-- 一覧へ戻る -->
 	<td>
 	<form action="task-list-servlet" method="POST">
