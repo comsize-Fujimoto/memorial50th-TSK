@@ -11,7 +11,10 @@
 	
 	<hr>
 	
-	<% TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");%>
+	<% TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
+		String userId = (String) session.getAttribute("userId");
+	%>
+	
 	
 	<div><b>タスク名</b></div>
 	<%=taskBean.getTaskName() %>
@@ -48,6 +51,8 @@
 	<hr>
 	
 	<table>
+	<!-- ログイン時のuseridと詳細情報のuseridが一致した時編集・削除できる -->
+	
 	<!-- 編集へ飛ぶ -->
 	<tr>
 	<td>
