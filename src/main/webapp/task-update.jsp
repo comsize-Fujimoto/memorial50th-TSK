@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.entity.TaskBean,model.entity.CategoryBean,java.util.Map,java.text.SimpleDateFormat"%>
+    pageEncoding="UTF-8" import="model.entity.TaskBean,model.entity.CategoryBean,model.entity.StatusBean,java.util.Map,java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,7 @@
 	<%
 	TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
 	Map<Integer,CategoryBean> categoryMap = (Map<Integer,CategoryBean>) session.getAttribute("categoryMap");
+	Map<Integer,StatusBean> statusMap = (Map<Integer,StatusBean>) session.getAttribute("statusMap");
 	%>
 	
 	<form action="update-task-servlet" method="post">
@@ -22,7 +23,7 @@
 	<div>カテゴリ情報</div>
 	<select name="categoryId value="<%=taskBean.getCategoryName() %>">
 		<% for(CategoryBean catMap : categoryMap.values()){ %>
-		<option value="<%=catMap.getCategoryCode()%>"><%=catMap.getCategoryName()%></option>
+		<option value="<%=catMap.getCategoryId()%>"><%=catMap.getCategoryName()%></option>
 		<% } %>
 	</select>
 	
@@ -36,7 +37,9 @@
 	
 	<div>ステータス情報</div>
 	<select name="statusCode" selected>
-		<option value=""></option>
+		<% for(StatusBean catMap : statusMap.values()){ %>
+		<option value="<%=catMap.getStatusCode()%>"><%=catMap.getStatusName()%></option>
+		<% } %>
 	</select>
 	
 	<div>メモ</div>

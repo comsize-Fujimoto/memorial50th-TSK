@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.TaskDAO;
 import model.entity.CategoryBean;
+import model.entity.StatusBean;
 import model.entity.TaskBean;
 
 /**
@@ -41,12 +42,13 @@ public class TaskUpdateServlet extends HttpServlet {
 		int taskId = Integer.parseInt(request.getParameter("task_code"));
 		
 		//TaskDAOのインスタンス化
-		TaskDAO tdao = new TaskDAO();
+		TaskDAO dao = new TaskDAO();
 		
 		//データベースから対象のタスクを読み出し
-		TaskBean taskBean = tdao.selectTask(taskId);
-		//データベースからカテゴリを読み出し
-		Map<Integer,CategoryBean> categoryMap = tdao.allCategory();
+		TaskBean taskBean = dao.selectTask(taskId);
+		//データベースからカテゴリとステータスを読み出し
+		Map<Integer,CategoryBean> categoryMap = dao.allCategory();
+		Map<Integer,StatusBean> statusMap = dao.allStatus();
 		
 		//セッションスコープを使えるようにする
 		HttpSession session = request.getSession();

@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class CategoryBean implements Serializable{
 	
-	private int categoryCode;
+	private int categoryId;
 	private String categoryName;
 	
 	public CategoryBean() {
 		
 	}
 
-	public int getCategoryCode() {
-		return categoryCode;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryCode(int categoryCode) {
-		this.categoryCode = categoryCode;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getCategoryName() {
@@ -26,4 +26,5 @@ public class CategoryBean implements Serializable{
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	
 }
