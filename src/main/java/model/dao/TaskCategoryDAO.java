@@ -1,86 +1,92 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.entity.CategoryBean;
 import model.entity.TaskBean;
 
 public class TaskCategoryDAO {
-	public class TaskDAO {
-		/* 全商品情報の一覧リストを返します。
+
+	/* 全商品情報の一覧リストを返します。
 		 * @return 商品情報リスト
 		 * @throws SQLException
 		 * @throws ClassNotFoundException
 		 */
-		//servletで使うための定義
+	//servletで使うための定義
+	//selectCatergory引数なしのメソッドを作るTaskBean型が入るList（オブジェクトクラス)
+	public List<CategoryBean> selectCategory() throws SQLException, ClassNotFoundException {
 
-		public List<TaskBean> selectCatergory()
-				throws SQLException, ClassNotFoundException {
-			
-			//TaskBean型のデータが入っているListを作成。インスタンス化。
-			List<TaskBean> taskList = new ArraytaskList<TaskBean>();
-
-			// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
-			try (Connection con = ConnectionManager.getConnection();
-					
-					//29行目抽出するために↓が必要
-					Statement stmt = con.createStatement();
-					ResultSet res = stmt.executeQuery("SELECT category_name,item_name,price FROM m_item"
-							)) {
-
+		List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
+		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+		try (Connection con = ConnectionManager.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet res = stmt.executeQuery("SELECT * FROM m_category")) {
 			// 結果の操作
-			//resの間繰り返す
-				
 			while (res.next()) {
-					String categoryName = res.getString("categoryName");
-					int categoryCode = res.getInt("categoryCode");
-					
-					TaskBean categoryBean = new TaskBean();
-					categoryBean.setCategoryCode(categoryCode);
-					categoryBean.setCategoryName(categoryName);
-
-
-					categoryList.add(categoryBean);
-				}
+				int categoryCode = res.getInt("category_code");
+				String categoryName = res.getString("category_name");
+				CategoryBean category = new CategoryBean();
+				category.setCategoryCode(categoryCode);
+				category.setCategoryName(categoryName);
+				categoryList.add(category);
 			}
-			return categoryList;
-	}
+	
+	
+	public List<TaskBean> insertTask()
+			throws SQLException, ClassNotFoundException {
+
+		//TaskBean型のデータが入っているListを作成。インスタンス化。
+		/*selectCtegoryメソッドでList<TaskBean>を戻り値で返したいので
+		 * そのためにTaskBean型のデータが入っているListを作成*/
+		List<TaskBean> taskList = new ArrayList<TaskBean>();
 		
-		public List<ItemBean> selectAll()
-				throws SQLException, ClassNotFoundException {
-			
-			//ItemCategoryBean型のデータが入っているListを作成。インスタンス化。
-			List<ItemBean> itemList = new ArrayList<ItemBean>();
+		//sql文の作成
+		String sql = "INSERT INTO t_task (task_name,category_name,limit_data,user_name,status_name,memo) VALUES (?,?,?,?,?,?)";
 
-			// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
-			try (Connection con = ConnectionManager.getConnection();
-					
-					//29行目抽出するために↓が必要
-					Statement stmt = con.createStatement();
-					ResultSet res = stmt.executeQuery("SELECT t1.item_code,t2.category_name,t1.item_name,t1.price FROM m_item t1 LEFT OUTER JOIN m_category t2 ON t1.category_code = t2.category_code"
-							)) {
+		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+		try (Connection con = ConnectionManager.getConnection();
 
-			// 結果の操作
-			//resの間繰り返す
-				
+				//34行目抽出するために↓が必要
+				/*ConnectionオブジェクトのcreateStatementメソッドを使用する*/
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			//参照型StatementオブジェクトのexecuteQueryメソッドを使用
+			ResultSet res = pstmt.executeQuery();
+		}
+
+				// 結果の操作
+				//resの間繰り返す
+
+			}
 			while (res.next()) {
-					int code = res.getInt("t1.item_code");
-					String itemName = res.getString("t1.item_name");
-					int categoryCode = res.getInt("t1.category_code");		
-					int price = res.getInt("t1.price");
-					
+				String taskName = res.getString("taskName");
+				String categoryName = res.getString("CategoryName");
+				//sqlデータ型のDATEをJavaデータ型に変換↓表記合ってる？
+				Date limitData = res.getDate("LimitData");
+				String userName = res.getString("UserName");
+				String statusName = res.getString("statusName");
+				String memo = res.getString("memo");
 
-					ItemBean itemBean = new ItemBean();
-					itemBean.setItemCode(code);
-					itemBean.setItemName(itemName);
-					itemBean.setCategoryCode(categoryCode);
-					itemBean.setPrice(price);
+				//TaskBean型に入れる属性値を記入している？
+				TaskBean insertBean = new TaskBean();
+				insertBean.setTaskName(taskName);
+				insertBean.setCategoryName(categoryName);
+				insertBean.setLimitDate(limitData);
+				insertBean.setUserName(userName);
+				insertBean.setStatusName(statusName);
+				insertBean.setMemo(memo);
 
-					itemList.add(itemBean);
-				}
+				taskList.add(insertBean);
+			}
+		}
+		return taskList;
+	}
 
 }
