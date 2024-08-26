@@ -54,6 +54,33 @@
 	
 	<hr>
 	
+	<!-- 追加：コメント欄 
+		1.コメントの表示
+			a.投稿者の情報
+			b.コメントの内容
+		
+		<table>
+		
+		</table>
+		
+		2.コメントの投稿
+		<form action="" method="POST">
+		
+		<input type textarea size=100>
+		</form>
+		
+		3.コメントの削除
+		
+		<form action"" method="GET">
+		</form>
+		
+		2と3はコメントの投稿者がすることができる
+		
+		
+		
+		<hr>
+	-->
+	
 	<table>
 	<!-- ログイン時のuseridとTaskBean内のuseridが一致した時編集・削除できる -->
 	
