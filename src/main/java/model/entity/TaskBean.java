@@ -3,6 +3,10 @@ package model.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * @author dadadaaaaaaike
+ */
+
 public class TaskBean implements Serializable{
 	
 	private int taskId;				//タスクID

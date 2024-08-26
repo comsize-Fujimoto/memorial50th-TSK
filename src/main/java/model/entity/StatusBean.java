@@ -1,9 +1,15 @@
 package model.entity;
 
-public class StatusBean {
+import java.io.Serializable;
+
+/**
+ * @author dadadaaaaaaike
+ */
+
+public class StatusBean implements Serializable{
 	
-	private int statusCode;
-	private String statusName;
+	private int statusCode;		//ステータスコード
+	private String statusName;	//ステータスネーム
 	
 	public StatusBean() {
 		

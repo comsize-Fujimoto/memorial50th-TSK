@@ -10,6 +10,9 @@ import java.util.List;
 
 import model.entity.TaskBean;
 
+/**
+ *  @author Fujimoto
+ */
 public class TaskListDAO {
 	
 	//タスクを表示するためにDBから取得する
