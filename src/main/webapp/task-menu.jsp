@@ -33,10 +33,17 @@
 		
 	</form>
 	
-		<form action="logout-success.jsp" method="POST">
+		<!-- formの送り先決める -->
+	<form action="" method="POST">
+		<input type="submit" value="コメント">
+		
+	</form>
+	
+	<form action="logout-success.jsp" method="POST">
 		<input type="submit" value="ログアウト">
 		
 	</form>
+
 	</div>
 </body>
 </html>
