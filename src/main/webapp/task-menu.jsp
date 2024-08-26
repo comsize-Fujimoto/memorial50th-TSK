@@ -34,7 +34,7 @@
 	</form>
 	
 		<!-- formの送り先決める -->
-	<form action="" method="POST">
+	<form action="comment-menu.jsp" method="POST">
 		<input type="submit" value="コメント">
 		
 	</form>
