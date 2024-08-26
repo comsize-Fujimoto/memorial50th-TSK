@@ -17,6 +17,8 @@
 		//ログインIDは編集・削除判定用
 		String userIdLogin = (String) session.getAttribute("userId");
 		String userIdDatabase = taskBean.getUserId();
+		//コメントに紐づいてるuser_idが欲しい
+		//String userIdComment = コメントのリストからもらう。
 	%>
 	
 	
@@ -57,23 +59,42 @@
 	--コメント表示予定地--
 	<!-- 追加：コメント欄 
 		1.コメントの表示
-			a.投稿者の情報
+			a.投稿者の情報 user_idをもとにユーザー名を表示
 			b.コメントの内容
 		
 		<table>
-		
+			<tr>
+				<th>ユーザー名</th>
+				<th>コメント</th>
+			</tr>
+			
+			for(コメントのリストを展開するやつ){
+			
+			<tr>
+				<td>userName</td>
+				<td>comment</td>
+			</tr>
+			
+			}
+			
 		</table>
 		
-		2.コメントの投稿
+		2.コメントの投稿,
+		
 		<form action="" method="POST">
 		
 		<input type textarea size=100>
 		</form>
 		
-		3.コメントの削除
+		3.コメントの削除,user_idと投稿者が一致しているときに表示
+		
+		if(userIdLogin.equals(userIdComment)){
 		
 		<form action"" method="GET">
+			
 		</form>
+		
+		}
 		
 		2と3はコメントの投稿者がすることができる
 		
