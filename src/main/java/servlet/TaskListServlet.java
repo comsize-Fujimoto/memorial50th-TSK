@@ -16,6 +16,10 @@ import model.dao.TaskListDAO;
 import model.entity.TaskBean;
 
 /**
+ *  @author Fujimoto
+ */
+
+/**
  * Servlet implementation class TaskListServlet
  */
 @WebServlet("/task-list-servlet")
