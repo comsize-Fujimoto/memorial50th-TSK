@@ -25,9 +25,21 @@
 				<td><%=taskBean.getCategoryName()%></td>
 			</tr>
 			<tr>
-				<th>期限</th>
-				<td><%=taskBean.getLimitDate()%></td>
-			</tr>
+			<!-- 期限がnullの場合、期限なしを表示 -->
+			<th>期限</th>
+
+			<%
+			if (taskBean.getLimitDate() != null) {
+			%>
+			<td><%=taskBean.getLimitDate()%></td>
+			<%
+			} else {
+			%>
+			<td>期限なし</td>
+			<%
+			}
+			%>
+		</tr>
 			<tr>
 				<th>担当者情報</th>
 				<td><%=taskBean.getUserName()%></td>

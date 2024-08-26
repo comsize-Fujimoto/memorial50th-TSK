@@ -11,11 +11,11 @@
 	TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
 	int processingNumber = (Integer) request.getAttribute("processingNumber");
 	if (processingNumber > 0) {
-%>
-<h2>次のデータを削除しました。</h2>
-<br>
-<br>
-	
+	%>
+	<h2>次のデータを削除しました。</h2>
+	<br>
+	<br>
+
 
 	<br>
 	<table border="1">
@@ -28,8 +28,20 @@
 			<td><%=taskBean.getCategoryName()%></td>
 		</tr>
 		<tr>
+			<!-- 期限がnullの場合、期限なしを表示 -->
 			<th>期限</th>
+
+			<%
+			if (taskBean.getLimitDate() != null) {
+			%>
 			<td><%=taskBean.getLimitDate()%></td>
+			<%
+			} else {
+			%>
+			<td>期限なし</td>
+			<%
+			}
+			%>
 		</tr>
 		<tr>
 			<th>担当者情報</th>
@@ -44,9 +56,9 @@
 			<td><%=taskBean.getMemo()%></td>
 		</tr>
 	</table>
-	
+
 	<%
-		} else {
+	} else {
 	%>
 	<h2>次のデータを削除できませんでした。</h2>
 	<br>
@@ -78,18 +90,18 @@
 		</tr>
 	</table>
 	<%
-		}
+	}
 	%>
-	
+
 	<!--  -->
 	<form action="task-list-servlet" method="POST">
 		<input type="submit" value="タスク一覧へ">
 	</form>
-	
+
 	<!-- メニュー画面へ飛ぶ -->
 	<form action="task-menu.jsp" method="POST">
-			<input type="submit" value="メニュー画面へ">
-		</form>
+		<input type="submit" value="メニュー画面へ">
+	</form>
 	<br>
 
 
