@@ -22,7 +22,7 @@
 		
 	</form>
 	
-		<form action="" method="POST">
+		<form action="delete-comment.jsp" method="POST">
 		<input type="submit" value="削除">
 		
 	</form>
