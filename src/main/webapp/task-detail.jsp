@@ -56,36 +56,43 @@
 	
 	<hr>
 	
-	--コメント表示予定地--
+	<b>-- コメント一覧 --</b>
 	<!-- 追加：コメント欄 
 		1.コメントの表示
 			a.投稿者の情報 user_idをもとにユーザー名を表示
 			b.コメントの内容
-		
-		<table>
+	-->
+		<table border="1">
 			<tr>
 				<th>ユーザー名</th>
 				<th>コメント</th>
 			</tr>
 			
-			for(コメントのリストを展開するやつ){
+			<!-- for(コメントのリストを展開するやつ){ -->
 			
 			<tr>
 				<td>userName</td>
 				<td>comment</td>
 			</tr>
 			
-			}
+			<!-- } -->
 			
 		</table>
 		
-		2.コメントの投稿,
+		<hr>
 		
+		<!-- 2.コメントの投稿  -->
+		<b>コメントを記入</b>
 		<form action="" method="POST">
 		
-		<input type textarea size=100>
+		<textarea rows="2" cols="100" name="comment"></textarea>
+		
+		<br>
+		
+		<input type="submit" value="コメントを投稿">
 		</form>
 		
+		<!--
 		3.コメントの削除,user_idと投稿者が一致しているときに表示
 		
 		if(userIdLogin.equals(userIdComment)){
