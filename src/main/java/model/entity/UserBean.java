@@ -2,15 +2,23 @@ package model.entity;
 
 import java.io.Serializable;
 
+//publicクラス
 public class UserBean implements Serializable {
 	
 	private String userId;			//ユーザID
 	private	 String password;		//パスワード
 	private String userName;		//ユーザ名
 	
+	//引数なしのコンストラクタを定義
+	public UserBean() {
+	}
+	
+	//getter setterメソッドを定義
 	public String getUserId() {
 		return userId;
 	}
+
+	
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
