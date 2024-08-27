@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.CommentDAO;
 import model.dao.TaskDAO;
 import model.entity.CategoryBean;
+import model.entity.CommentBean;
 import model.entity.StatusBean;
 import model.entity.TaskBean;
 
@@ -54,6 +59,19 @@ public class TaskUpdateServlet extends HttpServlet {
 		Map<Integer,CategoryBean> categoryMap = dao.allCategory();
 		Map<Integer,StatusBean> statusMap = dao.allStatus();
 		
+		//データベースからコメント情報を呼び出し
+		CommentDAO comDao = new CommentDAO();
+		
+		List<CommentBean> commentList = new ArrayList<CommentBean>();
+		
+		try {
+			commentList = comDao.commentDisplay(taskId);
+						
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		
 		//セッションスコープを使えるようにする
 		HttpSession session = request.getSession();
 		
@@ -61,6 +79,9 @@ public class TaskUpdateServlet extends HttpServlet {
 		session.setAttribute("updateTask", taskBean);
 		session.setAttribute("categoryMap", categoryMap);
 		session.setAttribute("statusMap", statusMap);
+		
+		//コメントをセット
+		session.setAttribute("commentList" ,commentList );
 		
 		//メニュー画面のパスを指定して転送処理用のオブジェクトを取得する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
