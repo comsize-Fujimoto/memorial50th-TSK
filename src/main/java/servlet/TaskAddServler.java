@@ -45,6 +45,27 @@ public class TaskAddServler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+		//データの受け取りのためにインスタンス化？
+				TaskCategoryDAO dao = new TaskCategoryDAO();
+
+				try {
+					List<TaskBean> taskList = dao.insertTask();
+					//データ型HttpSession　requestからgetSessionしてるからセッション開始
+					HttpSession session = request.getSession();
+					
+					//属性名taskListとペアで属性値taskListを持つ
+					//セッションスコープで同一クライアントからアクセスが続く間データ保持する
+					session.setAttribute("taskList", taskList);
+
+					RequestDispatcher rd = request.getRequestDispatcher("Task-register.jsp");
+
+					rd.forward(request, response);
+				} catch (SQLException | ClassNotFoundException e) {
+					e.printStackTrace();
+
+				}
+			}
 
 		//データの受け取りのためにインスタンス化？
 		TaskCategoryDAO dao = new TaskCategoryDAO();

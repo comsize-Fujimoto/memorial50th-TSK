@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.entity.CategoryBean;
+import model.entity.StatusBean;
 import model.entity.TaskBean;
 
 public class TaskCategoryDAO {
@@ -21,24 +22,51 @@ public class TaskCategoryDAO {
 		 */
 	//servletで使うための定義
 	//selectCatergory引数なしのメソッドを作るTaskBean型が入るList（オブジェクトクラス)
-	public List<CategoryBean> selectCategory() throws SQLException, ClassNotFoundException {
-
+	public List<CategoryBean> selectCategory() 
+			throws SQLException, ClassNotFoundException {
+		
+		//returnするためにCategoryBeanを扱うList型の変数名categoryListをインスタンス化する。
 		List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
+		String sql = "SELECT * FROM m_category";
 		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+		//中身を詰めていく
 		try (Connection con = ConnectionManager.getConnection();
-				Statement stmt = con.createStatement();
-				ResultSet res = stmt.executeQuery("SELECT * FROM m_category")) {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet res = pstmt.executeQuery()) {
+
 			// 結果の操作
+			//カーソルが動いたらtrue。
 			while (res.next()) {
-				int categoryCode = res.getInt("category_code");
+				int categoryId = res.getInt("category_id");
 				String categoryName = res.getString("category_name");
 				CategoryBean category = new CategoryBean();
-				category.setCategoryCode(categoryCode);
+				category.setCategoryId(categoryId);
 				category.setCategoryName(categoryName);
 				categoryList.add(category);
 			}
-	
-	
+		}return categoryList;
+	}
+	public List<StatusBean> selectStatus() 
+			throws SQLException, ClassNotFoundException {
+
+		List<StatusBean> statusList = new ArrayList<StatusBean>();
+		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+		try (Connection con = ConnectionManager.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet res = stmt.executeQuery("SELECT * FROM m_status")) {
+
+			// 結果の操作
+			while (res.next()) {
+				int statusCode = res.getInt("status_code");
+				String statusName = res.getString("status_name");
+				StatusBean status = new StatusBean();
+				status.setStatusCode(statusCode);
+				status.setStatusName(statusName);
+				statusList.add(status);
+			}
+		}return statusList;
+	}
+//タスク登録メソッド
 	public List<TaskBean> insertTask()
 			throws SQLException, ClassNotFoundException {
 
@@ -59,34 +87,33 @@ public class TaskCategoryDAO {
 
 			//参照型StatementオブジェクトのexecuteQueryメソッドを使用
 			ResultSet res = pstmt.executeQuery();
-		}
+			
 
 				// 結果の操作
 				//resの間繰り返す
 
-			}
-			while (res.next()) {
-				String taskName = res.getString("taskName");
-				String categoryName = res.getString("CategoryName");
-				//sqlデータ型のDATEをJavaデータ型に変換↓表記合ってる？
-				Date limitData = res.getDate("LimitData");
-				String userName = res.getString("UserName");
-				String statusName = res.getString("statusName");
-				String memo = res.getString("memo");
+		while(res.next())
 
-				//TaskBean型に入れる属性値を記入している？
-				TaskBean insertBean = new TaskBean();
-				insertBean.setTaskName(taskName);
-				insertBean.setCategoryName(categoryName);
-				insertBean.setLimitDate(limitData);
-				insertBean.setUserName(userName);
-				insertBean.setStatusName(statusName);
-				insertBean.setMemo(memo);
+	{
+		String taskName = res.getString("taskName");
+		String categoryName = res.getString("CategoryName");
+		//sqlデータ型のDATEをJavaデータ型に変換↓表記合ってる？
+		Date limitData = res.getDate("LimitData");
+		String userName = res.getString("UserName");
+		String statusName = res.getString("statusName");
+		String memo = res.getString("memo");
 
-				taskList.add(insertBean);
-			}
-		}
-		return taskList;
+		//TaskBean型に入れる属性値を記入している？
+		TaskBean insertBean = new TaskBean();
+		insertBean.setTaskName(taskName);
+		insertBean.setCategoryName(categoryName);
+		insertBean.setLimitDate(limitData);
+		insertBean.setUserName(userName);
+		insertBean.setStatusName(statusName);
+		insertBean.setMemo(memo);
+
+		taskList.add(insertBean);
 	}
+}return taskList;}
 
 }
