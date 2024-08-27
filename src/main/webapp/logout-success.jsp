@@ -21,7 +21,7 @@
 		session.invalidate();
 	%>
 	<div>
-			<!-- POSTでlogin.jspへ送る -->	
+			<!-- login.jspへ送りPOSTで受け取る -->	
 		<form action="login.jsp" method="POST">
 			<input type="submit" value="ログイン画面へ">
 		</form>

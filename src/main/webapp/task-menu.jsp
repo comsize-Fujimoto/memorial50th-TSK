@@ -34,10 +34,10 @@
 	</form>
 	
 		<!-- formの送り先決める -->
-	<form action="comment-menu.jsp" method="POST">
+<!-- 	<form action="comment-menu.jsp" method="POST">
 		<input type="submit" value="コメント">
 		
-	</form>
+	</form> -->
 	
 	<form action="logout-success.jsp" method="POST">
 		<input type="submit" value="ログアウト">
