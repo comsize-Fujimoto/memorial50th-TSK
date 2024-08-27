@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.entity.TaskBean"%>
+    pageEncoding="UTF-8" import="java.util.List,model.entity.TaskBean,model.entity.CommentBean"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,7 @@
 	
 	<% 
 		TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
+		List<CommentBean> commmentList = (List<CommentBean>) session.getAttribute("commentList");
 		
 		//ログインIDは編集・削除判定用
 		String userIdLogin = (String) session.getAttribute("userId");
@@ -68,14 +69,14 @@
 				<th>コメント</th>
 			</tr>
 			
-			<!-- for(コメントのリストを展開するやつ){ -->
+			<% for(CommentBean comment : commmentList){ %>
 			
 			<tr>
-				<td>userName</td>
-				<td>comment</td>
+				<td><%=comment.getUserName() %></td>
+				<td><%=comment.getComment() %></td>
 			</tr>
 			
-			<!-- } -->
+			<% } %>
 			
 		</table>
 		
