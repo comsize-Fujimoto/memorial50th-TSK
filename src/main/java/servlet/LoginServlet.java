@@ -1,4 +1,4 @@
-//login.jspからPOSTで送られてきたものをdoPOSTで受け取る
+//login.jspからPOSTで送られてきたものをdoPOSTで処理する
 package servlet;
 
 import java.io.IOException;
@@ -42,19 +42,21 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		インスタンス化する
+		//doPostでしたいこと
+		//TaskLoginDAOをインスタンス化
 		TaskLoginDAO dao = new TaskLoginDAO();
 		
+		//
 		UserBean user = null;
 		
-		// 入力されたユーザIDとパスワードを取得する
-
+		// login.jspで入力されたユーザIDとパスワードを取得する
 		String userId = request.getParameter("user_id");
 		String password = request.getParameter("password");
+		
 		try {
 			
 			// 入力されたユーザIDとパスワードでユーザの情報を取得する
-			//id,pwを引数としてdaoのログインメソッドを呼び出す
+			//TaskLoginDAOのloginメソッド(ID、パスワード)を呼び出す
 			user = dao.login(userId, password);
 
 		} catch (SQLException | ClassNotFoundException e) {
@@ -62,8 +64,10 @@ public class LoginServlet extends HttpServlet {
 
 		}
 		
-		String url = "";// 転送先
+		// 転送先
+		String url = "";
 		// ログイン認証
+		//userがnullではないとき処理が実行される
 		if (user != null) {
 			// セッションオブジェクトを生成
 			HttpSession session = request.getSession();
@@ -76,7 +80,8 @@ public class LoginServlet extends HttpServlet {
 			url = "login.failure.jsp";// ログイン失敗画面
 		}
 //		RequestDispatcherオブジェクトのforwardメソッドを使い
-//		リクエストの転送をする
+//		リクエストを転送
+//		成功したらメニュー画面へ、失敗したら失敗画面へ飛ぶ
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 //	

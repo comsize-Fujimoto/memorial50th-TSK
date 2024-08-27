@@ -14,7 +14,7 @@
 		<b>ユーザIDとパスワードを入力してください</b>
 	</h1>
 	<div>
-	<!-- LoginServletへ送りPOSTで受け取る -->
+	<!-- ユーザーID、PWをLoginServletへ送りPOSTで受け取る -->
 		<form action="LoginServlet" method="POST">
 			<table>
 				<tr>

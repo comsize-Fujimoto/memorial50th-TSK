@@ -9,36 +9,36 @@
 <body>
 
 	<%
+		//String型のuserName変数にLoginServletでセットしたuserNameを使いたい
 		String userName = (String) session.getAttribute("userName");
 	%>
 	<h1>メニュー画面</h1>
 	<hr>
-	<%
-		if (userName != null) {
-	%>
+
 	<h4>ようこそ！<%=userName%>さん</h4>
-	<%
-		}
-	%>
+
 	<div>
 
-<!-- タスク登録のaction先を齋藤さんに確認 -->
+	<!-- タスク登録へ飛ぶ -->
+
 	<form action="Task-register.jsp" method="POST">
 		<input type="submit" value="タスク登録">
 		
 	</form>
 	
+	<!--タスク一覧へ飛ぶ  -->
 	<form action="task-list-servlet" method="POST">
 		<input type="submit" value="タスク一覧">
 		
 	</form>
 	
-		<!-- formの送り先決める -->
-<!-- 	<form action="comment-menu.jsp" method="POST">
+		<!-- コメントページへ飛ぶように当初作成した
+ 	<form action="comment-menu.jsp" method="POST">
 		<input type="submit" value="コメント">
 		
 	</form> -->
 	
+	<!--ログアウトへ飛ぶ  -->
 	<form action="logout-success.jsp" method="POST">
 		<input type="submit" value="ログアウト">
 		
