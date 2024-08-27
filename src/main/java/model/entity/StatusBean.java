@@ -31,6 +31,4 @@ public class StatusBean implements Serializable{
 		this.statusName = statusName;
 	}
 	
-	
-	
 }
