@@ -23,7 +23,7 @@ public class CommentDAO {
 				+ "t1.task_id,"
 				+ "t1.user_id,"
 				+ "t2.user_name,"
-				+ "t1.comment"
+				+ "t1.comment "
 				+ "FROM t_comment t1 JOIN m_user t2 "
 				+ "ON t1.user_id = t2.user_id "
 				+ "WHERE task_id = ? ";
