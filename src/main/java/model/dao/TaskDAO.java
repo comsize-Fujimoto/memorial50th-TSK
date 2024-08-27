@@ -25,12 +25,16 @@ public class TaskDAO {
 		//SQL文
 		//String sql = "SELECT task_id,task_name,category_id,limit_date,user_id,status_code,memo FROM t_task WHERE task_id = ?";
 		
-		String sql = "SELECT t1.task_id,t1.task_name,t2.category_name,"
-				+ "t1.limit_date,"
-				+ "t1.user_id,"
-				+ "t3.user_name,"
-				+ "t4.status_name,"
-				+ "t1.memo "
+		String sql = "SELECT t1.task_id"
+				+ ",t1.task_name"
+				+ ",t2.category_id"
+				+ ",t2.category_name"
+				+ ",t1.limit_date"
+				+ ",t1.user_id"
+				+ ",t3.user_name"
+				+ ",t4.status_code"
+				+ ",t4.status_name"
+				+ ",t1.memo "
 				+ "FROM t_task t1 JOIN m_category t2 "
 				+ "ON t1.category_id = t2.category_id "
 				+ "JOIN m_user t3 "
@@ -53,10 +57,12 @@ public class TaskDAO {
 			while(res.next()) {
 				task.setTaskId(res.getInt("t1.task_id"));
 				task.setTaskName(res.getString("t1.task_name"));
+				task.setCategoryId(res.getInt("t2.category_id"));
 				task.setCategoryName(res.getString("t2.category_name"));
 				task.setLimitDate(res.getDate("t1.limit_date"));
 				task.setUserId(res.getString("t1.user_Id"));
 				task.setUserName(res.getString("t3.user_name"));
+				task.setStatusCode(res.getInt("t4.status_code"));
 				task.setStatusName(res.getString("t4.status_name"));
 				task.setMemo(res.getString("t1.memo"));
 			}
@@ -108,44 +114,6 @@ public class TaskDAO {
 		
 	}
 	
-	public Map<String,UserBean> allUser(){ //マップ使ってみた
-		
-		//sql文の作成をする
-		String sql = "SELECT user_id,user_name FROM m_user";
-		
-		//抽出したテーブルを格納するリストの作成をする
-		Map<String,UserBean> userMap = new HashMap<String,UserBean>();
-		
-		//データベースへの接続とSQL文の準備をする
-		try(Connection con = ConnectionManager.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)
-				){
-			//SQLの実行をする
-			ResultSet res = pstmt.executeQuery();
-			
-			//抽出したテーブルをリストに格納する
-			String userId;
-			String userName;
-			while(res.next()) {
-				
-				userId = res.getString("user_id");
-				userName = res.getString("user_name");
-				
-				userMap.put(userId,new UserBean());
-				userMap.get(userId).setUserId(userId);
-				userMap.get(userId).setUserName(userName);
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		return userMap;
-		
-	}
-	
 	public Map<Integer,StatusBean> allStatus(){ //マップ使ってみた
 		
 		//sql文の作成をする
@@ -184,4 +152,68 @@ public class TaskDAO {
 		
 	}
 	
+	public Map<String,UserBean> allUser(){ //マップ使ってみた
+		
+		//sql文の作成をする
+		String sql = "SELECT user_id,user_name FROM m_user";
+		
+		//抽出したテーブルを格納するリストの作成をする
+		Map<String,UserBean> userMap = new HashMap<String,UserBean>();
+		
+		//データベースへの接続とSQL文の準備をする
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)
+				){
+			//SQLの実行をする
+			ResultSet res = pstmt.executeQuery();
+			
+			//抽出したテーブルをリストに格納する
+			String userId;
+			String userName;
+			while(res.next()) {
+				
+				userId = res.getString("user_id");
+				userName = res.getString("user_name");
+				
+				userMap.put(userId,new UserBean());
+				userMap.get(userId).setUserId(userId);
+				userMap.get(userId).setUserName(userName);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return userMap;
+		
+	}
+
+	public int updateTask(TaskBean updateTask) {
+		
+		int count = 0;
+
+		String sql = "UPDATE t_task SET task_name = ?,category_id = ?,limit_date = ?,status_code = ?,memo = ? WHERE task_id = ?";
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setString(1, updateTask.getTaskName());
+			pstmt.setInt(2, updateTask.getCategoryId());
+			pstmt.setDate(3, updateTask.getLimitDate());
+			pstmt.setInt(4, updateTask.getStatusCode());
+			pstmt.setString(5, updateTask.getMemo());
+			pstmt.setInt(6, updateTask.getTaskId());
+			
+			count = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }

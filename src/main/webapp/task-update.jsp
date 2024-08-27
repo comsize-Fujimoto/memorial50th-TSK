@@ -23,10 +23,22 @@
 	<input type="text" name="taskName" value="<%=updateTask.getTaskName() %>">
 	
 	<div>カテゴリ情報</div>
-	<select name="categoryId value="<%=updateTask.getCategoryName() %>">
-		<% for(CategoryBean catMap : categoryMap.values()){ %>
-		<option value="<%=catMap.getCategoryId()%>"><%=catMap.getCategoryName()%></option>
-		<% } %>
+	<select name="categoryId">
+		<%
+		for(CategoryBean catMap : categoryMap.values()){
+			if(catMap.getCategoryId() == updateTask.getCategoryId()){
+			%>
+			
+			<option value="<%=catMap.getCategoryId()%>" selected><%=catMap.getCategoryName()%></option>
+			
+			<%
+			} else{
+			%>
+			<option value="<%=catMap.getCategoryId()%>"><%=catMap.getCategoryName()%></option>
+			<%
+			}
+		}
+		%>
 	</select>
 	
 	<div>期限</div>
@@ -37,14 +49,27 @@
 	<br>
 	
 	<div>ステータス情報</div>
-	<select name="statusCode" selected>
-		<% for(StatusBean catMap : statusMap.values()){ %>
-		<option value="<%=catMap.getStatusCode()%>"><%=catMap.getStatusName()%></option>
-		<% } %>
+	<select name="statusCode">
+		<%
+		for(StatusBean staMap : statusMap.values()){
+			if(staMap.getStatusCode() == updateTask.getStatusCode()){
+			%>
+			<option value="<%=staMap.getStatusCode()%>" selected><%=staMap.getStatusName()%></option>
+			<%
+			}else{
+			%>
+			<option value="<%=staMap.getStatusCode()%>"><%=staMap.getStatusName()%></option>
+			<%
+			}
+		}
+		%>
 	</select>
 	
 	<div>メモ</div>
-	<textarea name="memo" rows="4" cols="25"><%=updateTask.getMemo() %></textarea>
+	<textarea name="memo" rows="4" cols="25"><%
+	if(updateTask.getMemo() != null){
+		%><%=updateTask.getMemo()%><%
+	}%></textarea>
 	<br>
 	<input type="submit" value="完了">
 	<input type="reset" value="元に戻す">
