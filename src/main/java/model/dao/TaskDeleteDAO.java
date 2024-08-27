@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ *  @author Toumi
+ */
+
 public class TaskDeleteDAO {
 	
 	public int deleteTask(int taskId) throws SQLException, ClassNotFoundException {
