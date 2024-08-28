@@ -58,7 +58,7 @@ public class TaskUpdateServlet extends HttpServlet {
 		TaskBean taskBean = dao.selectTask(taskId);
 		//データベースからカテゴリとステータスを読み出し
 		Map<Integer,CategoryBean> categoryMap = dao.allCategory();
-		Map<Integer,StatusBean> statusMap = dao.allStatus();
+		Map<String,StatusBean> statusMap = dao.allStatus();
 		
 		//データベースからコメント情報を呼び出し
 		CommentDAO comDao = new CommentDAO();
@@ -108,13 +108,18 @@ public class TaskUpdateServlet extends HttpServlet {
 		//リクエストパラメータを取得する
 		String taskName = request.getParameter("taskName");
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		int statusCode = Integer.parseInt(request.getParameter("statusCode"));
+		String statusCode = request.getParameter("statusCode");
 		String memo = request.getParameter("memo");
 		String limitDate = request.getParameter("limitDate");
 		String dateBeforeUpdate = "";
 		if(updateTask.getLimitDate() != null) {
 			dateBeforeUpdate = updateTask.getLimitDate().toString();
 		}
+		String beforeMemo = "";
+		if(updateTask.getMemo() != null) {
+			beforeMemo = updateTask.getMemo();
+		}
+		
 		//リクエストパラメータをTaskBeanと比較して、変更点があったら変更し、なかったらエラーを出す
 		
 		Boolean updateFlag = false; //変更点の有無を識別する更新フラグ
@@ -128,7 +133,7 @@ public class TaskUpdateServlet extends HttpServlet {
 			updateTask.setCategoryId(categoryId);
 			updateFlag = true;
 		}
-		if(statusCode != updateTask.getStatusCode()) {
+		if(!(statusCode.equals(updateTask.getStatusCode()))) {
 			updateTask.setStatusCode(statusCode);
 			updateFlag = true;
 		}
@@ -143,7 +148,7 @@ public class TaskUpdateServlet extends HttpServlet {
 			updateTask.setLimitDate(date);
 			updateFlag = true;
 		}
-		if(!(memo.equals(updateTask.getMemo()))) {
+		if(!(memo.equals(beforeMemo))) {
 			if(memo.isEmpty()) {
 				updateTask.setMemo(null);
 			}else {
@@ -167,9 +172,15 @@ public class TaskUpdateServlet extends HttpServlet {
 			//セッションに更新したデータを書き出し
 			session.setAttribute("updateTask", updateTask);
 			
-			//タスク編集完了画面のパスを指定して転送処理用のオブジェクトを取得する
-			RequestDispatcher rd = request.getRequestDispatcher("task-update-success.jsp");
-			
+			//updateCountの内容に応じて転送先を指定する
+			RequestDispatcher rd;
+			if(updateCount == 1) {
+				//タスク編集完了画面のパスを指定して転送処理用のオブジェクトを取得する
+				rd = request.getRequestDispatcher("task-update-success.jsp");
+			}else {
+				//タスク編集失敗画面のパスを指定して転送処理用のオブジェクトを取得する
+				rd = request.getRequestDispatcher("task-update-failure.jsp");
+			}
 			//リクエストの転送
 			rd.forward(request, response);
 			

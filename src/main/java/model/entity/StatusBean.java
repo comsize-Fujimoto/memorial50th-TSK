@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 public class StatusBean implements Serializable{
 	
-	private int statusCode;		//ステータスコード
+	private String statusCode;		//ステータスコード
 	private String statusName;	//ステータスネーム
 	
 	public StatusBean() {
 		
 	}
 
-	public int getStatusCode() {
+	public String getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
+	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
 

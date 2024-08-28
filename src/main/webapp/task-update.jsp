@@ -14,7 +14,7 @@
 	<%
 	TaskBean updateTask = (TaskBean) session.getAttribute("updateTask");
 	Map<Integer,CategoryBean> categoryMap = (Map<Integer,CategoryBean>) session.getAttribute("categoryMap");
-	Map<Integer,StatusBean> statusMap = (Map<Integer,StatusBean>) session.getAttribute("statusMap");
+	Map<String,StatusBean> statusMap = (Map<String,StatusBean>) session.getAttribute("statusMap");
 	%>
 	
 	<form action="update-task-servlet" method="post">
@@ -52,7 +52,7 @@
 	<select name="statusCode">
 		<%
 		for(StatusBean staMap : statusMap.values()){
-			if(staMap.getStatusCode() == updateTask.getStatusCode()){
+			if(staMap.getStatusCode().equals(updateTask.getStatusCode())){
 			%>
 			<option value="<%=staMap.getStatusCode()%>" selected><%=staMap.getStatusName()%></option>
 			<%
@@ -74,6 +74,7 @@
 	<input type="submit" value="完了">
 	<input type="reset" value="元に戻す">
 	</form>
+	<a href="update-task-servlet?task_code=<%=updateTask.getTaskId()%>"><button>詳細画面に戻る</button></a>
 	
 	
 </body>

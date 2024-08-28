@@ -16,7 +16,7 @@ public class TaskBean implements Serializable{
 	private Date limitDate;			//期限
 	private String userId;			//ユーザID
 	private String userName;		//ユーザ名
-	private int statusCode;		//ステータスコード
+	private String statusCode;		//ステータスコード
 	private String statusName;		//ステータス名
 	private String memo;			//メモ
 	
@@ -80,11 +80,11 @@ public class TaskBean implements Serializable{
 		this.userName = userName;
 	}
 
-	public int getStatusCode() {
+	public String getStatusCode() {
 		return statusCode;
 	}
 
-	public void setStatusCode(int statusCode) {
+	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
 
