@@ -15,6 +15,7 @@
 	<hr>
 	<h2>タスク情報を削除します。よろしいですか？</h2>
 	<br>
+	<!-- 選択しているタスク情報表示 -->
 		<table border="1">
 			<tr>
 				<th>タスク名</th>
@@ -56,6 +57,7 @@
 	<br>
 	<!-- 削除実行 -->
 	 <form action="task-delete-servlet" method="POST">
+	 <!-- hiddenで選択しているタスクのtask_idをサーブレットに転送する -->
         <input type="hidden" name="task_id" value="<%= taskBean.getTaskId() %>">
         <input type="submit" value="削除する">
     </form>

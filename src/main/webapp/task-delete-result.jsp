@@ -10,13 +10,15 @@
 	<%
 	TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
 	int processingNumber = (Integer) request.getAttribute("processingNumber");
+	
+	//データの削除ができた場合
 	if (processingNumber > 0) {
 	%>
 	<h2>次のデータを削除しました。</h2>
 	<br>
 	<br>
 
-
+	<!-- 削除したタスクの詳細情報表示 -->
 	<br>
 	<table border="1">
 		<tr>
@@ -60,6 +62,7 @@
 	<%
 	} else {
 	%>
+	<!-- データの削除が行われなかった場合 -->
 	<h2>次のデータを削除できませんでした。</h2>
 	<br>
 	<br>
@@ -93,7 +96,7 @@
 	}
 	%>
 
-	<!--  -->
+	<!-- タスク一覧画面へ飛ぶ -->
 	<form action="task-list-servlet" method="POST">
 		<input type="submit" value="タスク一覧へ">
 	</form>

@@ -53,7 +53,7 @@ public class TaskDeleteServlet extends HttpServlet {
 				int processingNumber = 0; // 処理件数
 
 				try {
-					// 削除処理
+					// 削除処理 hiddenで転送したtask_idを取得し、引数でdeleteTaskメソッドに渡す
 					processingNumber = dao.deleteTask(Integer.parseInt(request.getParameter("task_id")));
 				} catch (SQLException | ClassNotFoundException e) {
 					e.printStackTrace();

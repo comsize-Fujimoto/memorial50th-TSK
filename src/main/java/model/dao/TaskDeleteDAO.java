@@ -11,16 +11,17 @@ import java.sql.SQLException;
 public class TaskDeleteDAO {
 	
 	public int deleteTask(int taskId) throws SQLException, ClassNotFoundException {
-
+		//DELETEのSQL文作成
 		String sql = "DELETE FROM t_task WHERE task_id = ?";
 		int processingNumber = 0; //処理件数
+		//DB接続
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			// プレースホルダへの値の設定
 			pstmt.setInt(1, taskId);
 			processingNumber = pstmt.executeUpdate();
 		}
-		return processingNumber;
+		return processingNumber;//処理件数を戻す
 	}
 	
 
