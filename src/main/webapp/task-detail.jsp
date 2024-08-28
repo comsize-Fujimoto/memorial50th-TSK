@@ -51,7 +51,15 @@
 	<br>
 	
 	<div><b>メモ</b></div>
+	<!-- メモがnullの場合何も表示しない -->
+	<% if(taskBean.getMemo() != null){ %>
 	<%=taskBean.getMemo() %>
+	<%
+	}else{
+	%>
+	<%
+	}
+	%>
 	<br>
 	
 	<hr>

@@ -43,13 +43,22 @@
 				<%=task.getLimitDate() %>
 				<%
 				}else{
-					%> 期限なし<%
+				%> 期限なし<%
 				}
 				%>
 			</td>
 			<td><%=task.getUserName()%></td>
 			<td><%=task.getStatusName()%></td>
-			<td><%=task.getMemo()%></td>
+			<!-- メモがnullの場合空白を表示 -->
+			<td><% if(task.getMemo() != null){ %>
+				<%=task.getMemo()%>
+				<%
+				}else{
+				%>
+				<%
+				}
+				%>
+			</td>
 		</tr>
 		<%
 		}

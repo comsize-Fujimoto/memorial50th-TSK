@@ -23,7 +23,7 @@ public class TaskListDAO {
 		
 		//データベース情報取得SQL
 		//taskIdは詳細表示に必要
-		//StringBuilderを使うとメモリを消費を軽減できる
+		//StringBuilderを使うとメモリの消費を軽減できる
 		
 		StringBuilder sb = new StringBuilder();
 		
