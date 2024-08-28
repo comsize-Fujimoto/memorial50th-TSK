@@ -23,6 +23,27 @@ public class TaskListDAO {
 		
 		//データベース情報取得SQL
 		//taskIdは詳細表示に必要
+		//StringBuilderを使うとメモリを消費しない
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT t1.task_id,");
+		sb.append("t1.task_name,");
+		sb.append("t2.category_name,");
+		sb.append("t1.limit_date,");
+		sb.append("t3.user_name,");
+		sb.append("t4.status_name,");
+		sb.append("t1.memo ");
+		sb.append("FROM t_task t1 JOIN m_category t2 ");
+		sb.append("ON t1.category_id = t2.category_id ");
+		sb.append("JOIN m_user t3 ");
+		sb.append("ON t1.user_id = t3.user_id ");
+		sb.append("JOIN m_status t4 ");
+		sb.append("ON t1.status_code = t4. status_code");
+		
+		String sql = sb.toString();
+		
+		/*このやり方だとメモリを食うのでNG
 		String sql = "SELECT t1.task_id,"
 				+ "t1.task_name,"
 				+ "t2.category_name,"
@@ -36,6 +57,7 @@ public class TaskListDAO {
 				+ "ON t1.user_id = t3.user_id "
 				+ "JOIN m_status t4 "
 				+ "ON t1.status_code = t4. status_code";
+		*/
 		
 		//DB接続
 		try(Connection con = ConnectionManager.getConnection();
