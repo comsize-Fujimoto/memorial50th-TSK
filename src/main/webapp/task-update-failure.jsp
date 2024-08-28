@@ -4,18 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>タスク編集未入力</title>
+<title>タスク編集失敗</title>
 </head>
 <body>
 	
-	<h1>編集されませんでした</h1>
+	<h1>タスクの編集に失敗しました。</h1>
 	
-	<!-- セッションからタスクidを読み出し -->
 	<%
 	TaskBean updateTask = (TaskBean) session.getAttribute("updateTask");
 	int taskId = updateTask.getTaskId();
 	%>
 	
+	<!-- セッションからタスクidを読み出し -->
 	<%
 	//セッションからupdateTaskを消す
 	session.removeAttribute("updateTask");

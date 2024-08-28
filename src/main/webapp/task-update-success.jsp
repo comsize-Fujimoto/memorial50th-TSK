@@ -12,29 +12,23 @@
 	<hr>
 	
 	<% 
-		TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
-		
-		//ログインIDは編集・削除判定用
-		String userIdLogin = (String) session.getAttribute("userId");
-		String userIdDatabase = taskBean.getUserId();
-		//コメントに紐づいてるuser_idが欲しい
-		//String userIdComment = コメントのリストからもらう。
+		TaskBean updateTask = (TaskBean) session.getAttribute("updateTask");
+		int taskId = updateTask.getTaskId();
 	%>
 	
-	
 	<div><b>タスク名</b></div>
-	<%=taskBean.getTaskName() %>
+	<%=updateTask.getTaskName() %>
 	<br>
 	
 	<div><b>カテゴリ情報</b></div>
-	<%=taskBean.getCategoryName() %>
+	<%=updateTask.getCategoryName() %>
 	<br>
 	
 	<!-- 期限がnullの場合期限なしを表示 -->
 	<div><b>期限</b></div>
-	<% if(taskBean.getLimitDate() != null){ %>
+	<% if(updateTask.getLimitDate() != null){ %>
 				
-			<%=taskBean.getLimitDate() %>
+			<%=updateTask.getLimitDate() %>
 		<%
 		}else{
 			%> 期限なし<%
@@ -43,15 +37,22 @@
 	<br>
 	
 	<div><b>担当者情報</b></div>
-	<%=taskBean.getUserName() %>
+	<%=updateTask.getUserName() %>
 	<br>
 	
 	<div><b>ステータス情報</b></div>
-	<%=taskBean.getStatusName() %>
+	<%=updateTask.getStatusName() %>
 	<br>
 	
 	<div><b>メモ</b></div>
-	<%=taskBean.getMemo() %>
+	<% if(updateTask.getMemo() != null){ %>
+				
+			<%=updateTask.getMemo() %>
+		<%
+		}else{
+			
+		}
+		%>
 	<br>
 	
 	<hr>
@@ -62,12 +63,17 @@
 	%>
 	
 	<table>
+	<tr>
+	<!-- タスク詳細画面に戻る -->
+	<td>
+	<a href="update-task-servlet?task_code=<%=taskId%>"><button>詳細画面に戻る</button></a>
+	</td>
 	<!-- 一覧へ戻る -->
 	<td>
 	<form action="task-list-servlet" method="POST">
 		<input type="submit" value="タスク一覧">
-		
 	</form>
+	</td>
 	<!-- メニューへ戻る -->
 	<td>
 	<form action="task-menu.jsp" method="POST">
