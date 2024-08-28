@@ -64,6 +64,7 @@
 		1.コメントの表示
 			a.投稿者の情報 user_idをもとにユーザー名を表示
 			b.コメントの内容
+			c.コメント削除欄(userIdが一致した時、押下可能)
 	-->
 		<table border="1">
 			<tr>
@@ -119,20 +120,6 @@
 		<input type="submit" value="コメントを投稿">
 		</form>
 		
-		<!--
-		3.コメントの削除,user_idと投稿者が一致しているときに表示
-		
-		if(userIdLogin.equals(userIdComment)){
-		
-		<form action"" method="GET">
-			
-		</form>
-		
-		}
-		
-		2と3はコメントの投稿者がすることができる
-		
-		-->
 		
 	<hr>
 	
