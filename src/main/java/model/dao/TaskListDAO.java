@@ -73,8 +73,11 @@ public class TaskListDAO {
 				String taskName = res.getString("t1.task_name");
 				//カテゴリ名
 				String categoryName = res.getString("t2.category_name");
+				
 				//期限
+				//LocalDateクラスにしてみたい
 				Date limitDate = res.getDate("t1.limit_date");
+				
 				//担当者名
 				String userName = res.getString("t3.user_name");
 				//ステータス名
