@@ -13,13 +13,12 @@
 	
 	<% 
 		TaskBean taskBean = (TaskBean) session.getAttribute("updateTask");
-		List<CommentBean> commmentList = (List<CommentBean>) session.getAttribute("commentList");
+		List<CommentBean> commentList = (List<CommentBean>) session.getAttribute("commentList");
 		
-		//ログインIDは編集・削除判定用
+		//ログインIDはタスク編集・削除とコメント削除の判定用
 		String userIdLogin = (String) session.getAttribute("userId");
 		String userIdDatabase = taskBean.getUserId();
-		//コメントに紐づいてるuser_idが欲しい
-		//String userIdComment = コメントのリストからもらう。
+		
 	%>
 	
 	
@@ -59,7 +58,7 @@
 	
 	<b>-- コメント一覧 --</b>
 	<!-- リストがある時表示 -->
-	<%if(!commmentList.isEmpty()){ %>
+	<%if(!commentList.isEmpty()){ %>
 	
 	<!-- 追加：コメント欄 
 		1.コメントの表示
@@ -70,13 +69,30 @@
 			<tr>
 				<th>ユーザー名</th>
 				<th>コメント</th>
+				<th>削除</th>
 			</tr>
 			
-			<% for(CommentBean comment : commmentList){ %>
+			<% for(CommentBean comment : commentList){ %>
 			
 			<tr>
 				<td><%=comment.getUserName() %></td>
 				<td><%=comment.getComment() %></td>
+				<% if(userIdLogin.equals(comment.getUserId())){ %>
+				<td>
+					<a
+					href="comment-servlet?comment_id=<%=comment.getCommentId()%>">
+					<button>削除する</button>
+					</a>
+				</td>
+				<% 
+				}else{ 
+				%>
+				<td>
+					<button disabled="disabled">削除する</button>
+				</td>
+				<%
+				}
+				%>
 			</tr>
 			
 			<% } %>
