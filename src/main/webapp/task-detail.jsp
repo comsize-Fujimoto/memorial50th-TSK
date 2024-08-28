@@ -111,7 +111,7 @@
 		
 		<!-- 2.コメントの投稿  -->
 		<b>コメントを記入</b>
-		<form action="" method="POST">
+		<form action="comment-servlet" method="POST">
 		
 		<textarea rows="2" cols="100" name="comment"></textarea>
 		
