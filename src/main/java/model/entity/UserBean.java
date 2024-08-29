@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //publicクラス
 public class UserBean implements Serializable {
-	
+	//以下の情報を保持するためのUserBean
 	private String userId;			//ユーザID
 	private	 String password;		//パスワード
 	private String userName;		//ユーザ名

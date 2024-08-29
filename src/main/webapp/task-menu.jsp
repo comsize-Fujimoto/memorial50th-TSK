@@ -21,7 +21,7 @@
 
 	<!-- タスク登録へ飛ぶ -->
 
-	<form action="Task-register.jsp" method="POST">
+	<form action="TaskAddServler" method="POST">
 		<input type="submit" value="タスク登録">
 		
 	</form>

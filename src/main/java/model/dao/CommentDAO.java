@@ -11,8 +11,7 @@ import model.entity.CommentBean;
 
 public class CommentDAO {
 	
-	//コメントをタスク詳細に表示させる
-	//CommentBean型のリストをかえす
+	//CommentBean型のリストに
 	public List<CommentBean> commentDisplay(int taskId) throws ClassNotFoundException, SQLException{
 		
 		//コメント情報を入れるためのリスト
@@ -32,9 +31,10 @@ public class CommentDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
-			// ?に値をセット
+			// プレースホルダへの値の設定
 			pstmt.setInt(1, taskId);
 			
+			//SQLステートメントの実行
 			ResultSet res = pstmt.executeQuery();
 			
 			while(res.next()) {
