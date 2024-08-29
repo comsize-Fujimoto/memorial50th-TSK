@@ -20,8 +20,11 @@ public class TaskCategoryDAO {
 		 * @throws SQLException
 		 * @throws ClassNotFoundException
 		 */
-	//servletで使うための定義
-	//selectCatergory引数なしのメソッドを作るTaskBean型が入るList（オブジェクトクラス)
+	//servletでデータ取得のためselectCategoryを定義
+	/*public(異なるパッケージのクラスからでもアクセス可能)
+	 * 戻り値<CategoryBean>を扱うList型(オブジェクトクラス)のselectCategoryメソッド。
+	 * 引数なし
+	 * SQL、クラスが見つからない時の例外処理をselectCategoryメソッドの呼び出し元に投げる*/
 	public List<CategoryBean> selectCategory() 
 			throws SQLException, ClassNotFoundException {
 		
@@ -32,7 +35,9 @@ public class TaskCategoryDAO {
 		//中身を詰めていく
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet res = pstmt.executeQuery()) {
+				
+				) {
+			ResultSet res = pstmt.executeQuery();
 
 			// 結果の操作
 			//カーソルが動いたらtrue。
@@ -57,7 +62,7 @@ public class TaskCategoryDAO {
 
 			// 結果の操作
 			while (res.next()) {
-				int statusCode = res.getInt("status_code");
+				String statusCode = res.getString("status_code");
 				String statusName = res.getString("status_name");
 				StatusBean status = new StatusBean();
 				status.setStatusCode(statusCode);
