@@ -69,7 +69,7 @@ public class TaskListServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
 			rd.forward(request, response);
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException | ServletException e) {
 			
 			e.printStackTrace();
 		}

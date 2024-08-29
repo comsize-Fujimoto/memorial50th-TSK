@@ -78,7 +78,12 @@ public class TaskListDAO {
 				//期限
 				//Date型からLocalDate型へ変換する
 				Date limitDateDb = res.getDate("t1.limit_date");
-				LocalDate limitDate = limitDateDb.toLocalDate();
+				LocalDate limitDate = null;
+				
+				if(limitDateDb != null) {
+					limitDate = limitDateDb.toLocalDate();
+				
+				}
 				
 				//担当者名
 				String userName = res.getString("t3.user_name");
