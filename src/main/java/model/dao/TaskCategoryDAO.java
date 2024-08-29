@@ -1,11 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class TaskCategoryDAO {
 		}return statusList;
 	}
 //タスク登録メソッド
-	public List<TaskBean> insertTask()
+	public List<TaskBean> insertTask(TaskBean newTask)
 			throws SQLException, ClassNotFoundException {
 
 		//TaskBean型のデータが入っているListを作成。インスタンス化。
@@ -81,7 +81,7 @@ public class TaskCategoryDAO {
 		List<TaskBean> taskList = new ArrayList<TaskBean>();
 		
 		//sql文の作成
-		String sql = "INSERT INTO t_task (task_name,category_name,limit_data,user_name,status_name,memo) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO t_task (task_name,category_id,limit_date,user_id,status_code,memo) VALUES (?,?,?,?,?,?);";
 
 		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
 		try (Connection con = ConnectionManager.getConnection();
@@ -91,34 +91,22 @@ public class TaskCategoryDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			//参照型StatementオブジェクトのexecuteQueryメソッドを使用
-			ResultSet res = pstmt.executeQuery();
 			
+			pstmt.setString(1,newTask.getTaskName());
+			pstmt.setInt(2,newTask.getCategoryId());
+			//LocalDate型をDate型にキャスト
+			Date limitDate = Date.valueOf(newTask.getLimitDate()) ;
+			pstmt.setDate(3,limitDate);
+			pstmt.setString(4,newTask.getUserId());
+			pstmt.setString(5,newTask.getStatusCode());
+			pstmt.setString(6,newTask.getMemo());
+			
+			int count = pstmt.executeUpdate();
+				
 
 				// 結果の操作
 				//resの間繰り返す
 
-		while(res.next())
-
-	{
-		String taskName = res.getString("taskName");
-		String categoryName = res.getString("CategoryName");
-		//sqlデータ型のDATEをJavaデータ型に変換↓表記合ってる？
-		LocalDate limitData = res.getDate("LimitData").toLocalDate();
-		String userName = res.getString("UserName");
-		String statusName = res.getString("statusName");
-		String memo = res.getString("memo");
-
-		//TaskBean型に入れる属性値を記入している？
-		TaskBean insertBean = new TaskBean();
-		insertBean.setTaskName(taskName);
-		insertBean.setCategoryName(categoryName);
-		insertBean.setLimitDate(limitData);
-		insertBean.setUserName(userName);
-		insertBean.setStatusName(statusName);
-		insertBean.setMemo(memo);
-
-		taskList.add(insertBean);
-	}
 }return taskList;}
 
 }
