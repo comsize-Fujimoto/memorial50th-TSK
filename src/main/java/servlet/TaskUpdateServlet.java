@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +96,10 @@ public class TaskUpdateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		//Date型は現行では使われていないので、LocalDate型を使うこと
+		
+		
 		//リクエストのエンコーディング方式を指定する
 		request.setCharacterEncoding("UTF-8");
 		
@@ -139,11 +143,11 @@ public class TaskUpdateServlet extends HttpServlet {
 		}
 		
 		if(!(limitDate.equals(dateBeforeUpdate))) { 
-			Date date;
+			LocalDate date;
 			if(limitDate.isEmpty()) {
 				date = null;
 			}else {
-				date = Date.valueOf(request.getParameter("limitDate"));
+				date = LocalDate.parse(request.getParameter("limitDate"));
 			}
 			updateTask.setLimitDate(date);
 			updateFlag = true;

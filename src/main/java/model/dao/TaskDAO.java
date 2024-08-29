@@ -1,9 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,11 +81,14 @@ public class TaskDAO {
 			
 			//抽出したテーブルをUserBeanに格納する
 			while(res.next()) {
+				
+				LocalDate limitDate = res.getDate("t1.limit_date").toLocalDate();
+				
 				task.setTaskId(res.getInt("t1.task_id"));
 				task.setTaskName(res.getString("t1.task_name"));
 				task.setCategoryId(res.getInt("t2.category_id"));
 				task.setCategoryName(res.getString("t2.category_name"));
-				task.setLimitDate(res.getDate("t1.limit_date"));
+				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("t1.user_Id"));
 				task.setUserName(res.getString("t3.user_name"));
 				task.setStatusCode(res.getString("t4.status_code"));
@@ -223,9 +228,11 @@ public class TaskDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			
+			Date limitDate = Date.valueOf(updateTask.getLimitDate());
+			
 			pstmt.setString(1, updateTask.getTaskName());
 			pstmt.setInt(2, updateTask.getCategoryId());
-			pstmt.setDate(3, updateTask.getLimitDate());
+			pstmt.setDate(3, limitDate);
 			pstmt.setString(4, updateTask.getStatusCode());
 			pstmt.setString(5, updateTask.getMemo());
 			pstmt.setInt(6, updateTask.getTaskId());
