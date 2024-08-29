@@ -1,11 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +103,7 @@ public class TaskCategoryDAO {
 		String taskName = res.getString("taskName");
 		String categoryName = res.getString("CategoryName");
 		//sqlデータ型のDATEをJavaデータ型に変換↓表記合ってる？
-		Date limitData = res.getDate("LimitData");
+		LocalDate limitData = res.getDate("LimitData").toLocalDate();
 		String userName = res.getString("UserName");
 		String statusName = res.getString("statusName");
 		String memo = res.getString("memo");
