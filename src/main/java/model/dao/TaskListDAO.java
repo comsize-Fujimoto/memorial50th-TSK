@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,8 @@ public class TaskListDAO {
 				
 				//期限
 				//LocalDateクラスにしてみたい
-				Date limitDate = res.getDate("t1.limit_date");
+				Date limitDateDb = res.getDate("t1.limit_date");
+				LocalDate limitDate =  limitDateDb.toLocalDate();
 				
 				//担当者名
 				String userName = res.getString("t3.user_name");
