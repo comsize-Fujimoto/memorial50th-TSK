@@ -82,7 +82,10 @@ public class TaskDAO {
 			//抽出したテーブルをUserBeanに格納する
 			while(res.next()) {
 				
-				LocalDate limitDate = res.getDate("t1.limit_date").toLocalDate();
+				LocalDate limitDate = null;
+				if(res.getDate("t1.limit_date") != null) {
+					limitDate = res.getDate("t1.limit_date").toLocalDate();
+				}
 				
 				task.setTaskId(res.getInt("t1.task_id"));
 				task.setTaskName(res.getString("t1.task_name"));
@@ -228,7 +231,10 @@ public class TaskDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			
-			Date limitDate = Date.valueOf(updateTask.getLimitDate());
+			Date limitDate = null;
+			if(updateTask.getLimitDate() != null) {
+				limitDate = Date.valueOf(updateTask.getLimitDate());
+			}
 			
 			pstmt.setString(1, updateTask.getTaskName());
 			pstmt.setInt(2, updateTask.getCategoryId());

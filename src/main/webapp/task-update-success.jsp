@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.entity.TaskBean"%>
+    pageEncoding="UTF-8" import="model.entity.TaskBean,java.time.LocalDate"%>
 <!DOCTYPE html>
 <html>
 <head>
