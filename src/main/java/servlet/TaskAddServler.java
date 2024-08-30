@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class TaskAddServler extends HttpServlet {
 			session.setAttribute("categoryList",categoryList);
 			session.setAttribute("statusList",statusList);	
 				//転送先の指定
-			RequestDispatcher rd = request.getRequestDispatcher("Task-register.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("task-register.jsp");
 			//
 			rd.forward(request,response);
 			}catch(SQLException | ClassNotFoundException | ServletException | IOException e) {
@@ -72,21 +74,63 @@ public class TaskAddServler extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		//登録内容をServletで受け取り、DAOに送る
+		String taskName = request.getParameter("TaskName");
+		int categoryId = Integer.parseInt(request.getParameter("CategoryId"));
+		String dateStr = request.getParameter("LimitDate");
+		LocalDate date = null; 
+				
+		//日付が入っていたらSQLに送る
+		if(dateStr != null) {
+			try{
+				date = LocalDate.parse(request.getParameter("LimitDate"));
+			}catch(DateTimeParseException e){
+				date = null;
+			}
+		}
+			
+		HttpSession session = request.getSession();
+		// セッションスコープへユーザ名を設定
+		session.getAttribute("userName");
+		session.getAttribute("userId");
+		
+		String userId = (String)session.getAttribute("userId");
+		String statusCode = request.getParameter("StatusCode");
+		String memo = request.getParameter("Memo");
+		
+		//バラバラなので↑を一塊の入れ物TaskBeanに入れる
+		//TaskBeanをインスタンス化
+		TaskBean task = new TaskBean();
+		
+		task.setTaskName(taskName);
+		task.setCategoryId(categoryId);
+		task.setLimitDate(date);
+		task.setUserId(userId);
+		task.setStatusCode(statusCode);
+		task.setMemo(memo);
+		
+		
+		
 		//データの受け取りのためにインスタンス化？
 				TaskCategoryDAO dao = new TaskCategoryDAO();
 
 				try {
-					List<TaskBean> taskList = dao.insertTask();
-					//データ型HttpSession　requestからgetSessionしてるからセッション開始
-					HttpSession session = request.getSession();
+					/*daoクラスのinsertTaskメソッドに引数としてtaskを指定する。
+					 * メソッドの戻り値(登録件数)をcountに入れる。*/
+					int count = dao.insertTask(task);
 					
-					//属性名taskListとペアで属性値taskListを持つ
-					//セッションスコープで同一クライアントからアクセスが続く間データ保持する
-					session.setAttribute("taskList", taskList);
-
-					RequestDispatcher rd = request.getRequestDispatcher("Register-success.jsp");
-
+					/*登録件数が１の場合、登録完了画面
+					 * それ以外の場合、登録失敗画面*/
+					RequestDispatcher rd;
+					if (count ==1) {
+						rd = request.getRequestDispatcher("register-success.jsp");
+					}else {
+						rd = request.getRequestDispatcher("register-failure.jsp");
+					}
+					
+					/*転送する*/
 					rd.forward(request, response);
+					
 				} catch (SQLException | ClassNotFoundException e) {
 					e.printStackTrace();
 

@@ -10,7 +10,7 @@
 	<h1>タスク登録失敗画面</h1>
 	<hr>
 	登録に失敗しました。
-		<form action="Task-register.jsp" method="POST">
+		<form action="task-register.jsp" method="POST">
 		<input type="submit" value="タスク登録画面へ">
 	</form>
 

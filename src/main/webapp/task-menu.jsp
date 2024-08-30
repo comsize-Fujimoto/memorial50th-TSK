@@ -21,7 +21,7 @@
 
 	<!-- タスク登録へ飛ぶ -->
 
-	<form action="TaskAddServler" method="POST">
+	<form action="TaskAddServler" method="GET">
 		<input type="submit" value="タスク登録">
 		
 	</form>

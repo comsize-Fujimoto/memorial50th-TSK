@@ -17,19 +17,19 @@
 	<h1>タスク登録画面</h1>
 	<hr>
 	<h5>【登録内容入力】</h5>
-	<form action="TaskRegisterServlet" method="POST">
+	<form action="TaskAddServler" method="POST">
 		<table border="1">
 
 			<tr>
 				<th>①タスク名</th>
 				<td>
 					<!-- textに入力した値に名前をつける。パラメーター名がtask_name --> 
-					<input type="text"name="task_name" required>
+					<input type="text"name="TaskName" >
 				</td>
 			</tr>
 			<tr>
 				<th>②カテゴリ情報</th>
-				<td><select name="category_name">
+				<td><select name="CategoryId">
 						<%
 						for (CategoryBean category : categoryList) {
 						%>
@@ -41,7 +41,7 @@
 			</tr>
 			<tr>
 				<th>③期限</th>
-				<td><input type="date" name="limit_date"></td>
+				<td><input type="date" name="LimitDate"></td>
 			</tr>
 			<tr>
 				<th>④担当者情報</th>
@@ -49,11 +49,11 @@
 			</tr>
 			<tr>
 				<th>⑤ステータス情報</th>
-				<td><select name="status_code">
+				<td><select name="StatusCode">
 						<%
 						for (StatusBean status : statusList) {
 						%>
-						<input type="number" name="status_code"></td>
+						<option value="<%=status.getStatusCode()%>"><%=status.getStatusName()%></option>
 						<%
 						}
 						%>
@@ -70,7 +70,7 @@
 	</form>
 	<br>
 	<br>
-	<form action="menu.jsp" method="POST">
+	<form action="task-menu.jsp" method="POST">
 		<input type="submit" value="メニュー画面へ">
 	</form>
 

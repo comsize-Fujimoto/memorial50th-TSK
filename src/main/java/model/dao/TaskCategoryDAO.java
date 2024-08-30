@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,13 +73,8 @@ public class TaskCategoryDAO {
 		}return statusList;
 	}
 //タスク登録メソッド
-	public List<TaskBean> insertTask(TaskBean newTask)
+	public int insertTask(TaskBean newTask)
 			throws SQLException, ClassNotFoundException {
-
-		//TaskBean型のデータが入っているListを作成。インスタンス化。
-		/*selectCtegoryメソッドでList<TaskBean>を戻り値で返したいので
-		 * そのためにTaskBean型のデータが入っているListを作成*/
-		List<TaskBean> taskList = new ArrayList<TaskBean>();
 		
 		//sql文の作成
 		String sql = "INSERT INTO t_task (task_name,category_id,limit_date,user_id,status_code,memo) VALUES (?,?,?,?,?,?);";
@@ -94,19 +90,26 @@ public class TaskCategoryDAO {
 			
 			pstmt.setString(1,newTask.getTaskName());
 			pstmt.setInt(2,newTask.getCategoryId());
-			//LocalDate型をDate型にキャスト
-			Date limitDate = Date.valueOf(newTask.getLimitDate()) ;
+			Date limitDate = null;
+			if(newTask.getLimitDate()!= null){
+				try{
+					limitDate = Date.valueOf(newTask.getLimitDate()) ;
+				}catch(DateTimeParseException e){
+					limitDate = null;
+				}	
+			}
 			pstmt.setDate(3,limitDate);
 			pstmt.setString(4,newTask.getUserId());
 			pstmt.setString(5,newTask.getStatusCode());
 			pstmt.setString(6,newTask.getMemo());
 			
+			//countに登録件数が代入される
 			int count = pstmt.executeUpdate();
 				
-
 				// 結果の操作
 				//resの間繰り返す
-
-}return taskList;}
+			return count;
+}
+		}
 
 }
