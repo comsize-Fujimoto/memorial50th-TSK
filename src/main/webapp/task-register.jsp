@@ -24,7 +24,7 @@
 				<th>①タスク名</th>
 				<td>
 					<!-- textに入力した値に名前をつける。パラメーター名がtask_name --> 
-					<input type="text"name="TaskName" >
+					<input type="text"name="TaskName" required>
 				</td>
 			</tr>
 			<tr>
@@ -41,7 +41,9 @@
 			</tr>
 			<tr>
 				<th>③期限</th>
-				<td><input type="date" name="LimitDate"></td>
+				<td><input type="date" name="LimitDate" value = LimitData min = today></td>
+				
+				
 			</tr>
 			<tr>
 				<th>④担当者情報</th>
@@ -49,7 +51,7 @@
 			</tr>
 			<tr>
 				<th>⑤ステータス情報</th>
-				<td><select name="StatusCode">
+				<td><select name="StatusCode"required>
 						<%
 						for (StatusBean status : statusList) {
 						%>
@@ -62,7 +64,7 @@
 			</tr>
 			<tr>
 				<th>➅メモ</th>
-				<td><input type="text" name="memo" maxlength="100"></td>
+				<td><input type="text" name="memo" size="30" maxlength="100"></td>
 			</tr>
 		</table>
 		<br> <input type="submit" value="登録"> <input type="reset"
