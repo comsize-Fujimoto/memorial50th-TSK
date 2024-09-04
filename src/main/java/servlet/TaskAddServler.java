@@ -119,10 +119,10 @@ public class TaskAddServler extends HttpServlet {
 		/*初期値がnull(未設定)*/
 		LocalDate date = null;
 
-		/*Date型のtoday変数＝DateクラスのvalueOf今の日付int型で取得*/
+		/*Date型のtoday変数＝DateクラスのvalueOf今の日付int型で取得	*/
 		Date today = Date.valueOf(LocalDate.now());
 
-		/*memoの文字数制限を超えている場合または、期日が過去の日付の場合、
+		/*条件分岐　memoの文字数制限を超えている場合または、期日が過去の日付の場合、
 		 * 登録失敗画面へ遷移(エラーチェック)*/
 		/*trueの場合、urlを登録失敗画面へ遷移する*/
 		if (memo.length() > maxlength || (limitDate != null && limitDate.before(today))) {
