@@ -43,18 +43,22 @@ public class TaskAddServler extends HttpServlet {
 
 		try {
 			request.setCharacterEncoding("UTF-8");
-			//TaskCategoryDAO入っているメソッドを使うためにインスタンス化する。
+			//TaskCategoryDAOに入っているメソッドを使うためにインスタンス化する
 			TaskCategoryDAO dao = new TaskCategoryDAO();
-			//DAOからデータを受け取るための箱を用意する。
+			
+			/*DAOからデータを受け取るための箱、
+			 * カテゴリ情報を保存するためのリスト
+			 * ステータス情報を保存するためのリストを用意する
+			 */
 			List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
 			List<StatusBean> statusList = new ArrayList<StatusBean>();
 
-			//categoryListにselectCategoryメソッドの結果を代入
-
+			//カテゴリーリストとステータスリストにselectメソッドの処理結果を代入
 			categoryList = dao.selectCategory();
 			statusList = dao.selectStatus();
 			//session開始
 			HttpSession session = request.getSession();
+			//セッションにカテゴリーリストとステータスリストのデータを一時的に保存する
 			session.setAttribute("categoryList", categoryList);
 			session.setAttribute("statusList", statusList);
 			//転送先の指定
