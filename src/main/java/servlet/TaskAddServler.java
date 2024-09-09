@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,11 +44,11 @@ public class TaskAddServler extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			//TaskCategoryDAOに入っているメソッドを使うためにインスタンス化する
 			TaskCategoryDAO dao = new TaskCategoryDAO();
-			
+
 			/*DAOからデータを受け取るための箱、
 			 * カテゴリ情報を保存するためのリスト
-			 * ステータス情報を保存するためのリストを用意する
-			 */
+			 * ステータス情報を保存するためのリストを用意する*/
+
 			List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
 			List<StatusBean> statusList = new ArrayList<StatusBean>();
 
@@ -69,7 +68,6 @@ public class TaskAddServler extends HttpServlet {
 
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -83,16 +81,6 @@ public class TaskAddServler extends HttpServlet {
 		//まずurlの初期値を空文字に設定する
 		String url = "";
 
-		//DBで使うためのDate型のlimitDate変数を宣言（入れ物作り）
-		Date limitDate;
-		//limit_dateのデータが空でないかどうかを確認するための条件分岐
-		 /* 期日(LimitDate)を型に変換
-		 * それ以外、期日(LimitDate)にnullが入る*/
-		if (!request.getParameter("LimitDate").isEmpty()) {
-			limitDate = Date.valueOf(request.getParameter("LimitDate"));
-		} else {
-			limitDate = null;
-		}
 		/*最大文字数制限を設定して条件分岐する*/
 		int maxlength = 100;
 
@@ -106,21 +94,25 @@ public class TaskAddServler extends HttpServlet {
 		//(タスク名、カテゴリ情報、期限)
 		String taskName = request.getParameter("TaskName");
 		int categoryId = Integer.parseInt(request.getParameter("CategoryId"));
-		String dateStr = request.getParameter("LimitDate");
 		String userId = (String) session.getAttribute("userId");
 		String statusCode = request.getParameter("StatusCode");
 		String memo = request.getParameter("memo");
 
-		
-		LocalDate localDate = LocalDate.parse(dateStr);
-
-		/*Date型のtoday変数＝DateクラスのvalueOf今の日付int型で取得	*/
-		Date today = Date.valueOf(LocalDate.now());
+		//DBで使うためのDate型のlimitDate変数を宣言（入れ物作り）
+		LocalDate limitDate;
+		//limit_dateのデータが空でないかどうかを確認するための条件分岐
+		/* 期日(LimitDate)を型に変換
+		* それ以外、期日(LimitDate)にnullが入る*/
+		if (!request.getParameter("LimitDate").isEmpty()) {
+			limitDate = LocalDate.parse(request.getParameter("LimitDate"));
+		} else {
+			limitDate = null;
+		}
 
 		/*条件分岐　memoの文字数制限を超えている場合または、期日が過去の日付の場合、
 		 * 登録失敗画面へ遷移(エラーチェック)*/
 		/*trueの場合、urlを登録失敗画面へ遷移する*/
-		if (memo.length() > maxlength || (limitDate != null && limitDate.before(today))) {
+		if (memo.length() > maxlength || (limitDate != null && limitDate.isBefore(LocalDate.now()))) {
 			url = "register-failure.jsp";
 		} else {
 
@@ -130,7 +122,7 @@ public class TaskAddServler extends HttpServlet {
 
 			task.setTaskName(taskName);
 			task.setCategoryId(categoryId);
-			task.setLimitDate(localDate);
+			task.setLimitDate(limitDate);
 			task.setUserId(userId);
 			task.setStatusCode(statusCode);
 			task.setMemo(memo);
@@ -145,20 +137,18 @@ public class TaskAddServler extends HttpServlet {
 
 				/*登録件数が１の場合、登録完了画面
 				 * それ以外の場合、登録失敗画面*/
-				
+
 				if (count == 1) {
 					url = "register-success.jsp";
 				} else {
 					url = "register-failure.jsp";
 				}
 
-
 			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 
 			}
 
-			
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

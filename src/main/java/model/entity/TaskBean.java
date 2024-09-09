@@ -104,5 +104,4 @@ public class TaskBean implements Serializable{
 		this.memo = memo;
 	}
 	
-	
 }

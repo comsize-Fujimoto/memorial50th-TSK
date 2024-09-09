@@ -16,7 +16,7 @@
 	%>
 	<h1>タスク登録画面</h1>
 	<hr>
-	<h5>【登録内容入力】</h5>
+	<h3>【登録内容入力】</h3>
 	<form action="TaskAddServler" method="POST">
 		<table border="1">
 
@@ -41,9 +41,7 @@
 			</tr>
 			<tr>
 				<th>③期限</th>
-				<td><input type="date" name="LimitDate" value = LimitData min = today></td>
-				
-				
+				<td><input type="date" name="LimitDate" value = LimitData></td>
 			</tr>
 			<tr>
 				<th>④担当者情報</th>
@@ -75,7 +73,5 @@
 	<form action="task-menu.jsp" method="POST">
 		<input type="submit" value="メニュー画面へ">
 	</form>
-
-
 </body>
 </html>
