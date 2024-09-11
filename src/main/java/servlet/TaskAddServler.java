@@ -24,45 +24,41 @@ import model.entity.TaskBean;
  @author saito
  */
 @WebServlet("/TaskAddServler")
+//HttpServletを継承したTaskAddServlerをシリアライズ
 public class TaskAddServler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public TaskAddServler() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	//GETリクエストがあった場合
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
+			//リクエストのエンコーディングを指定
 			request.setCharacterEncoding("UTF-8");
-			//TaskCategoryDAOに入っているメソッドを使うためにインスタンス化する
+			
+			//TaskCategoryDAOに入っているメソッドを使うためにインスタンス化
 			TaskCategoryDAO dao = new TaskCategoryDAO();
 
-			/*DAOからデータを受け取るための箱、
-			 * カテゴリ情報を保存するためのリスト
+			/* DAOからデータを受け取るための箱、
+			 * カテゴリ情報を保存するためのリスト、CategoryBean型の順序付きListを作成
 			 * ステータス情報を保存するためのリストを用意する*/
-
 			List<CategoryBean> categoryList = new ArrayList<CategoryBean>();
 			List<StatusBean> statusList = new ArrayList<StatusBean>();
 
-			//カテゴリーリストとステータスリストにselectメソッドの処理結果を代入
+			//カテゴリリストとステータスリストにselectメソッドの処理結果を代入
 			categoryList = dao.selectCategory();
 			statusList = dao.selectStatus();
+			
 			//session開始
 			HttpSession session = request.getSession();
 			//セッションにカテゴリーリストとステータスリストのデータを一時的に保存する
 			session.setAttribute("categoryList", categoryList);
 			session.setAttribute("statusList", statusList);
+			
 			//転送先の指定
 			RequestDispatcher rd = request.getRequestDispatcher("task-register.jsp");
-			//
 			rd.forward(request, response);
 		} catch (SQLException | ClassNotFoundException | ServletException | IOException e) {
 
@@ -100,6 +96,7 @@ public class TaskAddServler extends HttpServlet {
 
 		//DBで使うためのDate型のlimitDate変数を宣言（入れ物作り）
 		LocalDate limitDate;
+		
 		//limit_dateのデータが空でないかどうかを確認するための条件分岐
 		/* 期日(LimitDate)を型に変換
 		* それ以外、期日(LimitDate)にnullが入る*/
@@ -137,7 +134,6 @@ public class TaskAddServler extends HttpServlet {
 
 				/*登録件数が１の場合、登録完了画面
 				 * それ以外の場合、登録失敗画面*/
-
 				if (count == 1) {
 					url = "register-success.jsp";
 				} else {

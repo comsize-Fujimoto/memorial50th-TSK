@@ -23,7 +23,7 @@
 			<tr>
 				<th>①タスク名</th>
 				<td>
-					<!-- textに入力した値に名前をつける。パラメーター名がtask_name --> 
+					<!-- textに入力した値に名前をつける。パラメーター名がTaskName --> 
 					<input type="text"name="TaskName" required>
 				</td>
 			</tr>
