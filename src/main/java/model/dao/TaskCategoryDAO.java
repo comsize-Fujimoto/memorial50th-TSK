@@ -102,7 +102,7 @@ public class TaskCategoryDAO {
 			Date limitDate = null;
 			if (newTask.getLimitDate() != null) {
 				try {
-					// データ型を文字列に変換
+					// LocalDate型をDate型に変換
 					limitDate = Date.valueOf(newTask.getLimitDate());
 				} catch (DateTimeParseException e) {
 					limitDate = null;

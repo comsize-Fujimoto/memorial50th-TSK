@@ -30,6 +30,7 @@
 			<tr>
 				<th>②カテゴリ情報</th>
 				<td><select name="CategoryId">
+				<!--categoryListの中のCategoryBeanオブジェクトの中身を順番に取り出す-->
 						<%
 						for (CategoryBean category : categoryList) {
 						%>
